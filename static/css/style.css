@@ -1,3 +1,4 @@
+/* Por ahora lo dejaremos en algo basico para que no haya problemas, con que funcione por ahora estara bien */
 body {
     font-family: Arial, sans-serif;
     margin: 0;
@@ -15,10 +16,15 @@ main {
     padding: 50px 20px;
 }
 
+/* Lo habia dejado muy basico por ahora, despues le pongo animaciones */
+
 button {
-    padding: 12px 24px;
+    padding: 15px 35px;
     border: none;
-    border-radius: 6px;
+    border-radius: 8px;
     cursor: pointer;
-    font-size: 16px;
+    font-size: 18px;
+    font-weight: bold;
+    color: white;
+    background-color: #2563eb;
 }

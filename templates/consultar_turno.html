@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Consultar turno - FilaSmart</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
+<body>
+
+    <header>
+        <h1>FilaSmart</h1>
+    </header>
+
+    <main>
+        <h2>Consultar turno</h2>
+
+        <p>Ingrese su numero de turno para consultar su estado</p>
+
+        <form action="{{ url_for('consultar_turno') }}" method="GET">
+
+            <label for="turno">Numero de turno:</label>
+
+            <input
+                type="text"
+                id="turno"
+                name="turno"
+                placeholder="Ej: A001"
+                required
+            >
+
+            <button type="submit">Consultar turno</button>
+
+        </form>
+
+        {% if numero_turno %}
+        <section>
+            <h3>Informacion del turno</h3>
+
+            <p>Turno: {{ numero_turno }}</p>
+            <p>Posicion actual: 3</p>
+            <p>Personas antes que usted: 2</p>
+            <p>Tiempo estimado de espera: 15 minutos</p>
+            <p>Estado: Pendiente</p>
+        </section>
+        {% endif %}
+
+        <a href="{{ url_for('inicio') }}">← Volver al inicio</a>
+
+    </main>
+
+</body>
+</html>

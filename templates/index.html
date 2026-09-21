@@ -20,7 +20,11 @@
         <h2>Bienvenido a FilaSmart</h2>
         <p>Gestiona tu turno de manera rapida y sencilla con nuestra plataforma!</p>
 
-        <button>Obtener turno</button>
+        <a href="{{ url_for('obtener_turno') }}">Obtener turno</a>
+
+        <a href="{{ url_for('consultar_turno') }}">Consultar turno</a>
+
+        <a href="{{ url_for('gestion_turnos') }}">Gestión de turnos</a>
 
         
     </main>

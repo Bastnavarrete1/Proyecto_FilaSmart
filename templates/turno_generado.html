@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Turno generado - FilaSmart</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
+<body>
+
+    <header>
+        <h1>FilaSmart</h1>
+    </header>
+
+    <main>
+        <h2>Turno generado</h2>
+
+        <p>Su turno ha sido generado correctamente.</p>
+
+        <section>
+            <h3>Su numero de turno</h3>
+            <p>{{ numero_turno }}</p>
+        </section>
+
+        <p>
+            Puede consultar posteriormente su posicion y tiempo estimado de espera.
+        </p>
+
+        <a href="{{ url_for('inicio') }}">Volver al inicio</a>
+
+        <a href="{{ url_for('obtener_turno') }}">Obtener otro turno</a>
+
+        <a href="{{ url_for('consultar_turno') }}">Consultar turno</a>
+    </main>
+
+</body>
+</html>

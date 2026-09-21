@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Obtener turno - FilaSmart</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
+<body>
+
+    <header>
+        <h1>FilaSmart</h1>
+    </header>
+
+    <main>
+        <h2>Obtener turno</h2>
+
+        <p>
+            Seleccione el servicio que necesita para solicitar su turno.
+        </p>
+
+        <form>
+            <label for="servicio">Seleccione el servicio:</label>
+
+            <select id="servicio" name="servicio">
+                <option value="">Seleccione un servicio</option>
+                <option value="atencion-general">Atención general</option>
+                <option value="servicio-tecnico">Servicio técnico</option>
+                <option value="consulta">Consulta</option>
+            </select>
+
+            
+            <a href="{{ url_for('turno_generado') }}">Solicitar turno</a>
+        </form>
+
+        <a href="{{ url_for('inicio') }}">← Volver al inicio</a>
+    </main>
+
+</body>
+</html>

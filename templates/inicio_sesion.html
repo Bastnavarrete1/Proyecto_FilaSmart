@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Iniciar sesión - FilaSmart</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
+<body>
+
+    <header>
+        <h1>FilaSmart</h1>
+    </header>
+
+    <main>
+        <h2>Iniciar sesión</h2>
+
+        <p>Ingrese sus datos para acceder a FilaSmart.</p>
+
+        <form class="form-login">
+
+    <div class="campo-login">
+        <label for="correo">Correo electrónico:</label>
+        <input
+            type="email"
+            id="correo"
+            name="correo"
+            placeholder="usuario@correo.com"
+            required
+        >
+    </div>
+
+    <div class="campo-login">
+        <label for="contrasena">Contraseña:</label>
+        <input
+            type="password"
+            id="contrasena"
+            name="contrasena"
+            placeholder="Contraseña"
+            required
+        >
+    </div>
+
+    <button type="submit">Iniciar sesión</button>
+
+</form>
+
+        <p>
+            ¿No tiene una cuenta?
+            <a href="#">Registrarse</a>
+        </p>
+
+        <a href="{{ url_for('inicio') }}">← Volver al inicio</a>
+    </main>
+
+</body>
+</html>

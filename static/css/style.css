@@ -1,4 +1,5 @@
-/* Por ahora lo dejaremos en algo basico para que no haya problemas, con que funcione por ahora estara bien */
+/* Por ahora lo dejaremos en algo basico para que no haya problemas, 
+con que funcione por ahora estara bien */
 body {
     font-family: Arial, sans-serif;
     margin: 0;
@@ -16,15 +17,62 @@ main {
     padding: 50px 20px;
 }
 
-/* Lo habia dejado muy basico por ahora, despues le pongo animaciones */
+/* Lo habia dejado muy basico por ahora, 
+despues le pongo animaciones */
+
+a {
+    display: inline-block;
+    padding: 12px 24px;
+    margin: 8px;
+    background-color: #007bff;
+    color: white;
+    text-decoration: none;
+    border-radius: 6px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+a:hover {
+    background-color: #0056b3;
+}
 
 button {
-    padding: 15px 35px;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    font-size: 18px;
-    font-weight: bold;
+    padding: 12px 24px;
+    margin: 8px;
+    background-color: #007bff;
     color: white;
-    background-color: #2563eb;
+    border: none;
+    border-radius: 6px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+
+.form-login {
+    display: flex;
+    align-items: end;
+    justify-content: center;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+.campo-login {
+    display: flex;
+    flex-direction: column;
+}
+
+.campo-login label {
+    margin-bottom: 5px;
+}
+
+.campo-login input {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
 }

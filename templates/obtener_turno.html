@@ -26,13 +26,13 @@
 
             <select id="servicio" name="servicio">
                 <option value="">Seleccione un servicio</option>
-                <option value="atencion-general">Atención general</option>
-                <option value="servicio-tecnico">Servicio técnico</option>
+                <option value="atencion-general">Atencion general</option>
+                <option value="servicio-tecnico">Servicio tecnico</option>
                 <option value="consulta">Consulta</option>
             </select>
 
             
-            <a href="{{ url_for('turno_generado') }}">Solicitar turno</a>
+            <a href="{{ url_for('generar_turno') }}">Solicitar turno</a>
         </form>
 
         <a href="{{ url_for('inicio') }}">← Volver al inicio</a>

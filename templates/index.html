@@ -13,20 +13,44 @@
     <header>
         <h1>FilaSmart</h1>
         <p>Sistema de gestion de filas y tiempos de atencion</p>
+
+        {% if usuario %}
+    <a href="{{ url_for('cerrar_sesion') }}" class="boton-login">
+        Cerrar sesión
+    </a>
+{% else %}
+    <a href="{{ url_for('inicio_sesion') }}" class="boton-login">
+        Iniciar sesión
+    </a>
+{% endif %}
     </header>
 
     <main>
-        
+
         <h2>Bienvenido a FilaSmart</h2>
-        <p>Gestiona tu turno de manera rapida y sencilla con nuestra plataforma!</p>
 
-        <a href="{{ url_for('obtener_turno') }}">Obtener turno</a>
+        <p>
+            Gestiona tu turno de manera rapida y sencilla con nuestra plataforma!
+        </p>
 
-        <a href="{{ url_for('consultar_turno') }}">Consultar turno</a>
+        {% if usuario %}
 
-        <a href="{{ url_for('gestion_turnos') }}">Gestion de turnos</a>
+            <a href="{{ url_for('obtener_turno') }}">
+                Obtener turno
+            </a>
+
+            <a href="{{ url_for('consultar_turno') }}">
+                Consultar turno
+            </a>
+
+            <a href="{{ url_for('gestion_turnos') }}">
+            Gestion de turnos
+            </a>
+
+        {% endif %}
 
         
+
     </main>
 
     <img src="{{ url_for('static', filename='img/fila.png') }}" alt="Fila de personas">

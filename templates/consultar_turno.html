@@ -1,8 +1,10 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>Consultar turno - FilaSmart</title>
 
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
@@ -15,13 +17,18 @@
     </header>
 
     <main>
+
         <h2>Consultar turno</h2>
 
-        <p>Ingrese su numero de turno para consultar su estado</p>
+        <p>
+            Ingrese su numero de turno para consultar su estado.
+        </p>
 
         <form action="{{ url_for('consultar_turno') }}" method="GET">
 
-            <label for="turno">Numero de turno:</label>
+            <label for="turno">
+                Numero de turno:
+            </label>
 
             <input
                 type="text"
@@ -31,25 +38,68 @@
                 required
             >
 
-            <button type="submit">Consultar turno</button>
+            <button type="submit">
+                Consultar turno
+            </button>
 
         </form>
 
-        {% if numero_turno %}
+
+        {% if turno %}
+
         <section>
+
             <h3>Informacion del turno</h3>
 
-            <p>Turno: {{ numero_turno }}</p>
-            <p>Posicion actual: 3</p>
-            <p>Personas antes que usted: 2</p>
-            <p>Tiempo estimado de espera: 15 minutos</p>
-            <p>Estado: Pendiente</p>
+            <p>
+                Turno: {{ turno.numero }}
+            </p>
+
+            <p>
+                Servicio: {{ turno.servicio }}
+            </p>
+
+            <p>
+                Estado: {{ turno.estado }}
+            </p>
+
+            <p>
+                Posicion actual: 1
+            </p>
+
+            <p>
+                Personas antes que usted: 0
+            </p>
+
+            <p>
+                Tiempo estimado de espera: 0 minutos
+            </p>
+
         </section>
+
+
+        {% elif numero_turno %}
+
+        <section>
+
+            <h3>Turno no encontrado</h3>
+
+            <p>
+                No se encontro un turno con el numero
+                {{ numero_turno }}.
+            </p>
+
+        </section>
+
         {% endif %}
 
-        <a href="{{ url_for('inicio') }}">← Volver al inicio</a>
+
+        <a href="{{ url_for('inicio') }}">
+            ← Volver al inicio
+        </a>
 
     </main>
 
 </body>
+
 </html>

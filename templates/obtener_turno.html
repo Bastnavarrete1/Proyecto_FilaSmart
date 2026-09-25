@@ -21,18 +21,19 @@
             Seleccione el servicio que necesita para solicitar su turno.
         </p>
 
-        <form>
+        <form action="{{ url_for('turno_generado') }}" method="GET">
+
             <label for="servicio">Seleccione el servicio:</label>
 
-            <select id="servicio" name="servicio">
+            <select id="servicio" name="servicio" required>
                 <option value="">Seleccione un servicio</option>
-                <option value="atencion-general">Atencion general</option>
-                <option value="servicio-tecnico">Servicio tecnico</option>
-                <option value="consulta">Consulta</option>
+                <option value="Atencion general">Atencion general</option>
+                <option value="Servicio tecnico">Servicio tecnico</option>
+                <option value="Consulta">Consulta</option>
             </select>
 
-            
-            <a href="{{ url_for('generar_turno') }}">Solicitar turno</a>
+            <button type="submit">Solicitar turno</button>
+
         </form>
 
         <a href="{{ url_for('inicio') }}">← Volver al inicio</a>

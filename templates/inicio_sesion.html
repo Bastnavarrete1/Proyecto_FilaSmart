@@ -16,10 +16,17 @@
 
     <main>
         <h2>Iniciar sesión</h2>
+        {% if registrado %}
+    <p>Cuenta creada correctamente. Ahora puedes iniciar sesión.</p>
+{% endif %}
+
+{% if error %}
+    <p>{{ error }}</p>
+{% endif %}
 
         <p>Ingrese sus datos para acceder a FilaSmart.</p>
 
-        <form class="form-login">
+        <form class="form-login" method="POST">
 
     <div class="campo-login">
         <label for="correo">Correo electrónico:</label>
@@ -33,11 +40,11 @@
     </div>
 
     <div class="campo-login">
-        <label for="contrasena">Contraseña:</label>
+        <label for="password">Contraseña:</label>
         <input
             type="password"
-            id="contrasena"
-            name="contrasena"
+            id="password"
+            name="password"
             placeholder="Contraseña"
             required
         >
@@ -47,9 +54,11 @@
 
 </form>
 
+</form>
+
         <p>
-            ¿No tiene una cuenta?
-            <a href="#">Registrarse</a>
+          ¿Todavia no tienes una cuenta?
+          <a href="{{ url_for('registro') }}">Registrarse</a>
         </p>
 
         <a href="{{ url_for('inicio') }}">← Volver al inicio</a>

@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Modificar turno - FilaSmart</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
+<body>
+
+    <header>
+        <h1>FilaSmart</h1>
+    </header>
+
+    <main>
+
+        <h2>Modificar servicio</h2>
+
+        <p>
+            Turno: <strong>{{ turno.numero }}</strong>
+        </p>
+
+        <p>
+            Servicio actual: <strong>{{ turno.servicio }}</strong>
+        </p>
+
+        <form method="POST">
+
+            <label for="servicio">
+                Seleccione el nuevo servicio:
+            </label>
+
+            <select id="servicio" name="servicio" required>
+
+                <option value="">Seleccione un servicio</option>
+
+                <option value="Atencion general">
+                    Atencion general
+                </option>
+
+                <option value="Servicio tecnico">
+                    Servicio tecnico
+                </option>
+
+                <option value="Consulta">
+                    Consulta
+                </option>
+
+            </select>
+
+            <button type="submit">
+                Guardar cambios
+            </button>
+
+        </form>
+
+        <a href="{{ url_for('gestion_turnos') }}">
+            ← Volver a gestión de turnos
+        </a>
+
+    </main>
+
+</body>
+
+</html>

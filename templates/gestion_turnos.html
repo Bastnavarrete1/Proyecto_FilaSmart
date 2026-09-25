@@ -1,8 +1,10 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>Gestion de turnos - FilaSmart</title>
 
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
@@ -14,32 +16,58 @@
         <h1>FilaSmart</h1>
     </header>
 
-    <!-- Todavia esta parte esta en progreso asi que a la calma -->
     <main>
+
         <h2>Gestion de turnos</h2>
 
         <section>
-            <h3>Turno actual</h3>
-            <p>A001</p>
-            <p>Estado: En atencion</p>
 
-            <button type="button">Finalizar atencion</button>
-        </section>
-
-        <section>
             <h3>Turnos pendientes</h3>
 
-            <ul>
-                <li>A002 - Pendiente</li>
-                <li>A003 - Pendiente</li>
-                <li>A004 - Pendiente</li>
-            </ul>
+            {% if turnos %}
 
-            <button type="button">Llamar siguiente turno</button>
+                <ul>
+
+                    {% for turno in turnos %}
+
+                        {% if turno.estado == "Pendiente" %}
+
+                            <li>
+
+                                <strong>{{ turno.numero }}</strong>
+                                - {{ turno.servicio }}
+                                - {{ turno.estado }}
+
+                                <a href="{{ url_for('modificar_turno', numero_turno=turno.numero) }}">
+                                    Modificar servicio
+                                </a>
+
+                                <a href="{{ url_for('eliminar_turno', numero_turno=turno.numero) }}">
+                                    Eliminar
+                                </a>
+
+                            </li>
+
+                        {% endif %}
+
+                    {% endfor %}
+
+                </ul>
+
+            {% else %}
+
+                <p>No hay turnos pendientes.</p>
+
+            {% endif %}
+
         </section>
 
-        <a href="{{ url_for('inicio') }}">← Volver al inicio</a>
+        <a href="{{ url_for('inicio') }}">
+            ← Volver al inicio
+        </a>
+
     </main>
 
 </body>
+
 </html>

@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Iniciar sesion - FilaSmart</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
+<body>
+
+    <header>
+        <h1>FilaSmart</h1>
+    </header>
+
+    <main>
+
+        <h2>Iniciar sesion</h2>
+
+        {% if registrado %}
+
+        <p>
+            La cuenta se ha creado de manera exitosa.
+            Ahora puedes iniciar sesion.
+        </p>
+
+        {% endif %}
+
+        {% if error %}
+
+        <p>
+            {{ error }}
+        </p>
+
+        {% endif %}
+
+        <p>
+            Ingrese sus datos para ingresar a FilaSmart.
+        </p>
+
+        <form class="form-login" method="POST">
+
+            <div class="campo-login">
+
+                <label for="correo">
+                    Correo electronico:
+                </label>
+
+                <input
+                    type="email"
+                    id="correo"
+                    name="correo"
+                    placeholder="usuario@correo.com"
+                    required
+                >
+
+            </div>
+
+            <div class="campo-login">
+
+                <label for="password">
+                    Contraseña:
+                </label>
+
+                <input
+                    type="password"
+                    id="password"
+                    name="password"
+                    placeholder="Contraseña"
+                    required
+                >
+
+            </div>
+
+            <button type="submit">
+                Iniciar sesion
+            </button>
+
+        </form>
+
+        <p>
+            ¿Todavia no tienes una cuenta?
+
+            <a href="{{ url_for('registro') }}">
+                Registrarse
+            </a>
+        </p>
+
+        <a href="{{ url_for('inicio') }}">
+            ← Volver al inicio
+        </a>
+
+    </main>
+
+</body>
+
+</html>

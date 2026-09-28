@@ -44,6 +44,7 @@
 
         </form>
 
+        <!-- Dejaremos esta parte separada asi de grande para despues personalizar bien los tamaños para la gente mayor -->
 
         {% if turno %}
 
@@ -64,19 +65,18 @@
             </p>
 
             <p>
-                Posicion actual: 1
+                Posicion actual: {{ posicion }}
             </p>
 
             <p>
-                Personas antes que usted: 0
+                Personas antes que usted: {{ personas_antes }}
             </p>
 
             <p>
-                Tiempo estimado de espera: 0 minutos
+                Tiempo estimado de espera: {{ tiempo_estimado }} minutos
             </p>
 
         </section>
-
 
         {% elif numero_turno %}
 
@@ -92,7 +92,6 @@
         </section>
 
         {% endif %}
-
 
         <a href="{{ url_for('inicio') }}">
             ← Volver al inicio

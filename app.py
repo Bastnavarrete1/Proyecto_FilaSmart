@@ -79,6 +79,19 @@ def admin_required(view):
         return view(*args, **kwargs)
     return wrapper
 
+def funcionario_required(view):
+    @wraps(view)
+    def wrapper(*args, **kwargs):
+        if not session.get('usuario_id'):
+            return redirect(url_for('inicio_sesion'))
+
+        if session.get('rol') not in ('admin', 'funcionario'):
+            abort(403)
+
+        return view(*args, **kwargs)
+
+    return wrapper
+
 
 @app.route('/')
 def inicio():
@@ -299,9 +312,35 @@ def eliminar_turno(numero_turno):
                            (numero_turno, session['usuario_id']))
     return redirect(url_for('gestion_turnos'))
 
+@app.route('/cliente/perfil')
+@login_required
+def perfil_cliente():
 
+    with db() as connection:
+
+        with connection.cursor() as cursor:
+
+            cursor.execute('''
+                SELECT id_usuario, nombre, correo, rol, fecha_registro
+                FROM usuarios
+                WHERE id_usuario = %s
+            ''', (session['usuario_id'],))
+
+            usuario = cursor.fetchone()
+
+    if not usuario:
+        abort(404)
+
+    return render_template(
+        'cliente/perfil_cliente.html',
+        usuario=usuario
+    )
+
+
+
+#-------------------------------------------------------------------- Admin -------------------------------------------------------------------------------
 @app.route('/admin/panel')
-@admin_required
+@funcionario_required
 def panel_admin():
     with db() as connection:
         with connection.cursor() as cursor:
@@ -312,7 +351,7 @@ def panel_admin():
 
 
 @app.route('/admin/llamar-siguiente', methods=['POST'])
-@admin_required
+@funcionario_required
 def llamar_siguiente():
     with db() as connection:
         with connection.cursor() as cursor:
@@ -339,7 +378,7 @@ def llamar_siguiente():
 
 
 @app.route('/admin/finalizar-atencion/<numero_turno>', methods=['POST'])
-@admin_required
+@funcionario_required
 def finalizar_atencion(numero_turno):
     with db() as connection:
         with connection.cursor() as cursor:
@@ -352,7 +391,7 @@ def finalizar_atencion(numero_turno):
 
 
 @app.route('/admin/cancelar-turno/<numero_turno>', methods=['POST'])
-@admin_required
+@funcionario_required
 def cancelar_turno_admin(numero_turno):
     with db() as connection:
         with connection.cursor() as cursor:

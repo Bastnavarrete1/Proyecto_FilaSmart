@@ -22,10 +22,14 @@
                 <span>FilaSmart</span>
             </a>
 
-            <a href="{{ url_for('inicio') }}" class="turno-volver">
-                <i class="bi bi-arrow-left"></i>
-                Volver al inicio
-            </a>
+            <div class="cliente-usuario">
+
+                <a href="{{ url_for('cerrar_sesion') }}" class="boton-cerrar">
+                    <i class="bi bi-box-arrow-right"></i>
+                        Cerrar sesión
+                </a>
+
+            </div>
 
         </header>
 
@@ -116,6 +120,11 @@
                     </button>
 
                 </form>
+
+                <a href="{{ url_for('inicio_cliente') }}" class="perfil-volver">
+                    <i class="bi bi-arrow-left"></i>
+                        Volver al inicio
+                </a>
 
             </section>
 

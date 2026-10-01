@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Configuracion de prioridad - FilaSmart</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
+<body>
+
+    <header>
+        <h1>FilaSmart</h1>
+        <p>Configuracion de prioridad</p>
+    </header>
+
+    <!-- Aca veremos la opcion de atender a adultos mayores lo antes posible, o tambien podemos cambiarla esta para probar lo de cambiar
+     de numero de fila con otra persona para que asi "guarden el puesto" ahora veremos cual podemos elegir pero deje la basica por ahora -->
+    <main>
+
+        <h2>Configuracion de prioridad</h2>
+
+        <p>
+            Configure el criterio que se utilizara para organizar la atencion de los turnos.
+        </p>
+
+        <section>
+
+            <h3>Criterio de atencion</h3>
+
+            <form method="POST">
+
+                <label for="prioridad">
+                    Criterio:
+                </label>
+
+                <select id="prioridad" name="prioridad" required>
+
+                    <option value="llegada"
+                        {% if prioridad == "llegada" %}selected{% endif %}>
+                        Orden de llegada
+                    </option>
+
+                    <option value="alta"
+                        {% if prioridad == "alta" %}selected{% endif %}>
+                        Prioridad alta
+                    </option>
+
+                    <option value="sin_prioridad"
+                        {% if prioridad == "sin_prioridad" %}selected{% endif %}>
+                        Sin prioridad
+                    </option>
+
+                </select>
+
+                <button type="submit">
+                    Guardar configuracion
+                </button>
+
+            </form>
+
+        </section>
+
+        <section>
+
+            <h3>Configuracion actual</h3>
+
+            <p>
+                Criterio seleccionado:
+            </p>
+
+            <strong>
+
+                {% if prioridad == "llegada" %}
+
+                    Orden de llegada
+
+                {% elif prioridad == "alta" %}
+
+                    Prioridad alta
+
+                {% elif prioridad == "sin_prioridad" %}
+
+                    Sin prioridad
+
+                {% else %}
+
+                    No configurado
+
+                {% endif %}
+
+            </strong>
+
+        </section>
+
+        <a href="{{ url_for('panel_admin') }}">
+            ← Volver al panel administrador
+        </a>
+
+    </main>
+
+</body>
+
+</html>

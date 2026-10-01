@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Gestion de servicios - FilaSmart</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
+<body>
+
+    <header>
+        <h1>FilaSmart</h1>
+        <p>Gestion de servicios</p>
+    </header>
+
+    <main>
+
+        <h2>Gestion de servicios</h2>
+
+        <p>
+            Desde aqui puede visualizar y agregar los servicios disponibles.
+        </p>
+
+
+        <!-- Aqui agregamos un servicio por si necesita, despues lo cambiare para que sea personalizado a establecimientos -->
+
+        <section>
+
+            <h3>Agregar servicio</h3>
+
+            <form action="{{ url_for('agregar_servicio') }}" method="POST">
+
+                <label for="servicio">
+                    Nombre del servicio:
+                </label>
+
+                <input
+                    type="text"
+                    id="servicio"
+                    name="servicio"
+                    placeholder="Ej: Corte de cabello"
+                    required
+                >
+
+                <button type="submit">
+                    Agregar servicio
+                </button>
+
+            </form>
+
+        </section>
+
+
+        <!-- Los servicios que hay -->
+
+        <section>
+
+            <h3>Servicios disponibles</h3>
+
+            {% if servicios %}
+
+                <ul>
+
+                    {% for servicio in servicios %}
+
+                        <li>
+                            {{ servicio.nombre }}
+                        </li>
+
+                    {% endfor %}
+
+                </ul>
+
+            {% else %}
+
+                <p>
+                    No hay servicios registrados.
+                </p>
+
+            {% endif %}
+
+        </section>
+
+
+        <a href="{{ url_for('panel_admin') }}">
+            ← Volver al panel administrador
+        </a>
+
+    </main>
+
+</body>
+
+</html>

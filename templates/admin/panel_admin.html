@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Panel administrador - FilaSmart</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
+<body>
+
+    <header>
+        <h1>FilaSmart</h1>
+        <p>Panel de administrador</p>
+    </header>
+
+    <main>
+
+        <h2>Panel de administrador</h2>
+
+        <p>
+            Desde este panel puede gestionar los turnos y la atencion de los clientes.
+        </p>
+
+
+        <!-- Los calculos faciles los dejare en Jinja y los mas complejos los dejare en Python, por ahora, despues veremos si
+         al momento de cambiar a la BD adaptamos las funciones -->
+
+        <section>
+
+            <h3>Resumen de turnos</h3>
+
+            <p>
+                Turnos registrados:
+                <strong>{{ turnos|length }}</strong>
+            </p>
+
+            <p>
+                Turnos pendientes:
+                <strong>
+                    {{ turnos
+                    | selectattr("estado", "equalto", "Pendiente")
+                    | list
+                    | length }}
+                </strong>
+            </p>
+
+            <p>
+                En atencion:
+                <strong>
+                    {{ turnos
+                    | selectattr("estado", "equalto", "En atencion")
+                    | list
+                    | length }}
+                </strong>
+            </p>
+
+        </section>
+
+
+<!-- Lista de turnos (puedes cambiar esta parte si no te gusta) -->
+
+<section>
+
+    <h3>Turnos actuales</h3>
+
+    {% if turnos %}
+
+        <ul>
+
+            {% for turno in turnos %}
+
+                <li>
+
+                    <strong>
+                        {{ turno.numero }}
+                    </strong>
+
+                    -
+
+                    {{ turno.servicio }}
+
+                    -
+
+                    <strong>
+                        {{ turno.estado }}
+                    </strong>
+
+
+                    {% if turno.estado == "En atencion" %}
+
+                        <form action="{{ url_for('finalizar_atencion', numero_turno=turno.numero) }}" method="POST" style="display:inline">
+                            <button type="submit">Finalizar atencion</button>
+                        </form>
+
+                    {% endif %}
+
+
+                    {% if turno.estado == "Pendiente" %}
+
+                        <form action="{{ url_for('cancelar_turno_admin', numero_turno=turno.numero) }}" method="POST" style="display:inline">
+                            <button type="submit">Cancelar turno</button>
+                        </form>
+
+                    {% endif %}
+
+                </li>
+
+            {% endfor %}
+
+        </ul>
+
+    {% else %}
+
+        <p>
+            No hay turnos registrados.
+        </p>
+
+    {% endif %}
+
+</section>
+
+        <!-- Gestion -->
+
+        <section>
+
+            <h3>Gestion</h3>
+
+            <p>
+                <form action="{{ url_for('llamar_siguiente') }}" method="POST">
+                    <button type="submit">Llamar siguiente turno</button>
+                </form>
+            </p>
+
+            <p>
+                <a href="{{ url_for('gestion_servicios') }}">
+                    Gestionar servicios
+                </a>
+            </p>
+
+            <p>
+                <a href="{{ url_for('configuracion_prioridad') }}">
+                    Configurar prioridades
+                </a>
+            </p>
+
+        </section>
+
+
+        <a href="{{ url_for('inicio') }}">
+            ← Volver al inicio
+        </a>
+
+    </main>
+
+</body>
+
+</html>

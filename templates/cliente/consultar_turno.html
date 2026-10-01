@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Consultar turno - FilaSmart</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+</head>
+
+<body>
+
+    <div class="cliente-pagina">
+
+        <!-- Header -->
+
+        <header class="cliente-header">
+
+            <div class="cliente-logo">
+
+                <i class="bi bi-people-fill"></i>
+
+                <span>FilaSmart</span>
+
+            </div>
+
+
+            <!-- Boton volver al inicio -->
+
+            <a
+                href="{{ url_for('inicio_cliente') }}"
+                class="turno-volver"
+            >
+
+                <i class="bi bi-arrow-left"></i>
+
+                Volver al inicio
+
+            </a>
+
+        </header>
+
+
+        <main class="turno-contenido">
+
+            <div class="turno-tarjeta">
+
+                <div class="turno-cabecera">
+
+                    <div class="turno-icono">
+
+                        <i class="bi bi-search"></i>
+
+                    </div>
+
+                    <div>
+
+                        <h1>Consultar turno</h1>
+
+                        <p>
+                            Ingresa tu numero de turno para consultar su estado.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <!-- Formulario -->
+
+                <form
+                    action="{{ url_for('consultar_turno') }}"
+                    method="GET"
+                    class="turno-form"
+                >
+
+                    <div class="turno-campo">
+
+                        <label for="turno">
+                            Numero de turno
+                        </label>
+
+                        <div class="turno-input">
+
+                            <i class="bi bi-ticket-perforated"></i>
+
+                            <input
+                                type="text"
+                                id="turno"
+                                name="turno"
+                                placeholder="Ej: A001"
+                                value="{{ numero_turno or '' }}"
+                                required
+                            >
+
+                        </div>
+
+                    </div>
+
+
+                    <button type="submit" class="turno-boton">
+
+                        <i class="bi bi-search"></i>
+
+                        Consultar turno
+
+                    </button>
+
+                </form>
+
+
+                {% if turno %}
+
+                <section class="turno-resultado">
+
+                    <div class="resultado-cabecera">
+
+                        <div class="resultado-icono">
+
+                            <i class="bi bi-check-lg"></i>
+
+                        </div>
+
+                        <div>
+
+                            <h2>Informacion de tu turno</h2>
+
+                            <p>
+                                Estos son los datos actuales de tu turno.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="resultado-numero">
+
+                        <span>Tu turno</span>
+
+                        <strong>{{ turno.numero }}</strong>
+
+                    </div>
+
+
+                    <div class="resultado-datos">
+
+                        <div class="resultado-dato">
+
+                            <span>Servicio</span>
+
+                            <strong>{{ turno.servicio }}</strong>
+
+                        </div>
+
+
+                        <div class="resultado-dato">
+
+                            <span>Estado</span>
+
+                            <strong>{{ turno.estado }}</strong>
+
+                        </div>
+
+                    </div>
+
+
+                    {% if turno.estado == 'Pendiente' %}
+
+                    <div class="resultado-espera">
+
+                        <div class="espera-item">
+
+                            <i class="bi bi-people"></i>
+
+                            <div>
+
+                                <span>Personas antes que tu</span>
+
+                                <strong>{{ personas_antes }}</strong>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="espera-item">
+
+                            <i class="bi bi-clock"></i>
+
+                            <div>
+
+                                <span>Tiempo estimado</span>
+
+                                <strong>{{ tiempo_estimado }} minutos</strong>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="resultado-info">
+
+                        <i class="bi bi-info-circle"></i>
+
+                        <p>
+                            Tu turno se encuentra en espera.
+                            Puedes volver a consultar mas adelante para conocer su estado.
+                        </p>
+
+                    </div>
+
+                    {% else %}
+
+                    <div class="resultado-info">
+
+                        <i class="bi bi-info-circle"></i>
+
+                        <p>
+                            Este turno ya no esta en la fila de espera.
+                        </p>
+
+                    </div>
+
+                    {% endif %}
+
+                </section>
+
+
+                {% elif numero_turno %}
+
+                <section class="turno-no-encontrado">
+
+                    <div class="resultado-icono">
+
+                        <i class="bi bi-exclamation-lg"></i>
+
+                    </div>
+
+                    <h2>Turno no encontrado</h2>
+
+                    <p>
+                        No se encontro un turno con el numero
+                        <strong>{{ numero_turno }}</strong>.
+                    </p>
+
+                    <p>
+                        Verifica que el numero ingresado sea correcto.
+                    </p>
+
+                </section>
+
+                {% endif %}
+
+            </div>
+
+        </main>
+
+    </div>
+
+
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+
+</body>
+
+</html>

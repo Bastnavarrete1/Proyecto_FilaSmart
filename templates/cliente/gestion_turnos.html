@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Gestion de turnos - FilaSmart</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+</head>
+
+<body>
+
+    <div class="cliente-pagina">
+
+        <header class="cliente-header">
+
+            <div class="cliente-logo">
+
+                <i class="bi bi-people-fill"></i>
+
+                <span>FilaSmart</span>
+
+            </div>
+
+
+            <div class="cliente-usuario">
+
+                <a href="{{ url_for('inicio_cliente') }}" class="boton-cerrar">
+                    <i class="bi bi-house"></i>
+                    Inicio
+                </a>
+
+            </div>
+
+        </header>
+
+
+        <!-- Contenido -->
+
+        <main class="gestion-contenido">
+
+            <div class="gestion-tarjeta">
+
+                <!-- Head -->
+
+                <div class="gestion-cabecera">
+
+                    <div class="gestion-icono">
+
+                        <i class="bi bi-list-check"></i>
+
+                    </div>
+
+                    <div>
+
+                        <h1>Gestion de turnos</h1>
+
+                        <p>
+                            Administra tus turnos pendientes.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <section class="gestion-seccion">
+
+                    <div class="gestion-seccion-titulo">
+
+                        <div>
+
+                            <h2>Turnos pendientes</h2>
+
+                            <p>
+                                Aqui puedes modificar o cancelar tus turnos.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    {% if turnos %}
+
+                        <div class="gestion-lista">
+
+                            {% for turno in turnos %}
+
+                                {% if turno.estado == "Pendiente" %}
+
+                                    <div class="gestion-turno">
+
+                                        <div class="gestion-turno-info">
+
+                                            <div class="gestion-numero">
+
+                                                <span>Turno</span>
+
+                                                <strong>
+                                                    {{ turno.numero }}
+                                                </strong>
+
+                                            </div>
+
+
+                                            <div class="gestion-datos">
+
+                                                <div>
+
+                                                    <span>Servicio</span>
+
+                                                    <strong>
+                                                        {{ turno.servicio }}
+                                                    </strong>
+
+                                                </div>
+
+
+                                                <div>
+
+                                                    <span>Estado</span>
+
+                                                    <strong class="estado-pendiente">
+                                                        {{ turno.estado }}
+                                                    </strong>
+
+                                                </div>
+
+                                            </div>
+
+                                        </div>
+
+
+                                        <div class="gestion-acciones">
+
+                                            <a
+                                                href="{{ url_for('modificar_turno', numero_turno=turno.numero) }}"
+                                                class="gestion-modificar"
+                                            >
+
+                                                <i class="bi bi-pencil"></i>
+
+                                                Modificar
+
+                                            </a>
+
+
+                                            <form
+                                                action="{{ url_for('eliminar_turno', numero_turno=turno.numero) }}"
+                                                method="POST"
+                                            >
+
+                                                <button
+                                                    type="submit"
+                                                    class="gestion-cancelar"
+                                                >
+
+                                                    <i class="bi bi-x-circle"></i>
+
+                                                    Cancelar
+
+                                                </button>
+
+                                            </form>
+
+                                        </div>
+
+                                    </div>
+
+                                {% endif %}
+
+                            {% endfor %}
+
+                        </div>
+
+                    {% else %}
+
+                        <div class="gestion-vacio">
+
+                            <div class="gestion-vacio-icono">
+
+                                <i class="bi bi-check2-circle"></i>
+
+                            </div>
+
+                            <h3>No hay turnos pendientes</h3>
+
+                            <p>
+                                Actualmente no tienes turnos pendientes.
+                            </p>
+
+                        </div>
+
+                    {% endif %}
+
+                </section>
+
+
+                <!-- Volver inicio -->
+
+                <a
+                    href="{{ url_for('inicio_cliente') }}"
+                    class="gestion-volver"
+                >
+
+                    <i class="bi bi-arrow-left"></i>
+
+                    Volver al inicio
+
+                </a>
+
+            </div>
+
+        </main>
+
+    </div>
+
+
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+
+</body>
+
+</html>

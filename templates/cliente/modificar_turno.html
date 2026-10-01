@@ -1,0 +1,136 @@
+```html
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Modificar turno - FilaSmart</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+</head>
+
+<body>
+
+    <div class="turno-pagina">
+
+        <header class="turno-header">
+
+            <div class="turno-logo">
+
+                <i class="bi bi-people-fill"></i>
+
+                <span>FilaSmart</span>
+
+            </div>
+
+        </header>
+
+
+        <main class="turno-contenido">
+
+            <a href="{{ url_for('gestion_turnos') }}" class="turno-volver">
+
+                <i class="bi bi-arrow-left"></i>
+
+                Volver a gestion de turnos
+
+            </a>
+
+
+            <section class="turno-tarjeta">
+
+                <div class="turno-titulo">
+
+                    <div class="turno-titulo-icono">
+
+                        <i class="bi bi-pencil-square"></i>
+
+                    </div>
+
+                    <div>
+
+                        <h1>Modificar servicio</h1>
+
+                        <p>
+                            Cambia el servicio asociado a tu turno.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="turno-actual">
+
+                    <div>
+
+                        <span>Turno actual</span>
+
+                        <strong>{{ turno.numero }}</strong>
+
+                    </div>
+
+                    <div>
+
+                        <span>Servicio actual</span>
+
+                        <strong>{{ turno.servicio }}</strong>
+
+                    </div>
+
+                </div>
+
+
+                <form method="POST" class="turno-form">
+
+                    <div class="turno-campo">
+
+                        <label for="servicio">
+                            Seleccione el nuevo servicio:
+                        </label>
+
+                        <select id="servicio" name="servicio" required>
+
+                            <option value="">
+                                Seleccione un servicio
+                            </option>
+
+                            {% for servicio in servicios %}
+
+                            <option
+                                value="{{ servicio.id }}"
+                                {% if turno.id_fila == servicio.id %}selected{% endif %}
+                            >
+                                {{ servicio.nombre }}
+                            </option>
+
+                            {% endfor %}
+
+                        </select>
+
+                    </div>
+
+
+                    <button type="submit" class="turno-boton">
+
+                        <i class="bi bi-check-lg"></i>
+
+                        Guardar cambios
+
+                    </button>
+
+                </form>
+
+            </section>
+
+        </main>
+
+    </div>
+
+</body>
+
+</html>
+```

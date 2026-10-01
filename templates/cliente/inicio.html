@@ -48,17 +48,19 @@
 
             <div class="cliente-usuario">
 
-                <span>
-                    {{ session.get('usuario') }}
-                </span>
+                <a href="{{ url_for('perfil_cliente') }}" class="usuario-perfil">
+                    <i class="bi bi-person-circle"></i>
+                        {{ session.get('usuario') }}
+                 </a>
 
-                <a href="{{ url_for('cerrar_sesion') }}"
-                   class="boton-cerrar">
-                    <i class="bi bi-box-arrow-right"></i>
-                    Cerrar sesion
+
+                <a href="{{ url_for('cerrar_sesion') }}" class="boton-cerrar">
+                     <i class="bi bi-box-arrow-right"></i>
+                        Cerrar sesion
                 </a>
 
             </div>
+
 
         </header>
 

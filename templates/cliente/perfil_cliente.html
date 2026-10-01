@@ -20,24 +20,16 @@
     <header class="cliente-header">
 
         <div class="cliente-logo">
-
             <i class="bi bi-people-fill"></i>
-
             <span>FilaSmart</span>
-
         </div>
 
 
         <div class="cliente-usuario">
-
             <a href="{{ url_for('cerrar_sesion') }}" class="boton-cerrar">
-
-                <i class="bi bi-box-arrow-right"></i>
-
+                 <i class="bi bi-box-arrow-right"></i>
                     Cerrar sesión
-
             </a>
-
         </div>
 
     </header>
@@ -46,126 +38,77 @@
     <main class="perfil-contenido">
 
         <div class="perfil-tarjeta">
-
             <div class="perfil-cabecera">
-
-                <div class="perfil-icono">
-
-                    <i class="bi bi-person"></i>
-
-                </div>
+                    <div class="perfil-icono">
+                        <i class="bi bi-person"></i>
+                    </div>
 
                 <div>
-
                     <h1>Mi perfil</h1>
-
                     <p>
                         Informacion de tu cuenta en FilaSmart.
                     </p>
-
-                </div>
-
+                 </div>
             </div>
 
 
             <section class="perfil-seccion">
-
                 <div class="perfil-seccion-titulo">
-
                     <h2>Informacion personal</h2>
-
-                    <p>
-                        Estos son los datos asociados a tu cuenta.
+                     <p>
+                        Sus datos en nuestra plataforma son:
                     </p>
-
                 </div>
-
+<!-- Todavia no quiero agregar la opcion de modificar los datos ya que de ser asi tendriamos que modificar un poco la BD ya que quisiera agregar nuevos datos para cambiar -->
 
                 <div class="perfil-datos">
 
                     <div class="perfil-dato">
-
                         <div class="perfil-dato-icono">
-
                             <i class="bi bi-person-fill"></i>
-
                         </div>
 
                         <div>
-
                             <span>Nombre</span>
-
-                            <strong>
-                                {{ usuario.nombre }}
-                            </strong>
-
+                            <strong> {{ usuario.nombre }} </strong>
                         </div>
-
                     </div>
 
 
                     <div class="perfil-dato">
-
                         <div class="perfil-dato-icono">
-
                             <i class="bi bi-envelope-fill"></i>
-
                         </div>
 
                         <div>
-
                             <span>Correo electronico</span>
-
-                            <strong>
-                                {{ usuario.correo }}
-                            </strong>
-
+                            <strong> {{ usuario.correo }} </strong>
                         </div>
-
                     </div>
 
 
                     <div class="perfil-dato">
-
-                        <div class="perfil-dato-icono">
-
+                         <div class="perfil-dato-icono">
                             <i class="bi bi-shield-check"></i>
-
                         </div>
 
                         <div>
-
                             <span>Tipo de cuenta</span>
-
-                            <strong>
-                                {{ usuario.rol }}
-                            </strong>
-
+                            <strong> {{ usuario.rol }} </strong>
                         </div>
-
-                    </div>
+                     </div>
 
 
                     <div class="perfil-dato">
-
                         <div class="perfil-dato-icono">
-
                             <i class="bi bi-calendar3"></i>
-
                         </div>
 
                         <div>
-
                             <span>Fecha de registro</span>
-
-                            <strong>
-                                {{ usuario.fecha_registro }}
-                            </strong>
-
+                            <strong> {{ usuario.fecha_registro }} </strong>
                         </div>
-
-                    </div>
-
+                     </div>
                 </div>
 
             </section>
@@ -174,7 +117,6 @@
                     <i class="bi bi-arrow-left"></i>
                         Volver al inicio
                 </a>
-
         </div>
 
     </main>

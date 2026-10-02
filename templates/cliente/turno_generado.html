@@ -34,13 +34,9 @@
             <div class="cliente-usuario">
 
                 <a href="{{ url_for('cerrar_sesion') }}" class="boton-cerrar">
-
                     <i class="bi bi-box-arrow-right"></i>
-
-                    Cerrar sesion
-
+                        Cerrar sesion
                 </a>
-
             </div>
 
         </header>
@@ -50,7 +46,6 @@
 
 
             <div class="turno-tarjeta">
-
 
                 <div class="turno-cabecera">
 
@@ -122,54 +117,29 @@
                     </div>
 
 
-                    
-
-
                 </section>
 
 
                 <div class="turno-generado-acciones">
 
 
-                    <a
-                        href="{{ url_for('consultar_turno', turno=numero_turno) }}"
-                        class="turno-boton"
-                    >
-
+                    <a href="{{ url_for('consultar_turno', turno=numero_turno) }}" class="turno-boton">
                         <i class="bi bi-search"></i>
-
-                        Consultar turno
-
+                            Consultar turno
                     </a>
 
 
-                    <a
-                        href="{{ url_for('obtener_turno') }}"
-                        class="turno-secundario"
-                    >
-
+                    <a href="{{ url_for('obtener_turno') }}" class="turno-secundario">
                         <i class="bi bi-plus-circle"></i>
-
-                        Obtener otro turno
-
+                            Obtener otro turno
                     </a>
-
-
                 </div>
 
 
-                <a
-                    href="{{ url_for('inicio_cliente') }}"
-                    class="turno-volver"
-                >
-
+                <a href="{{ url_for('inicio_cliente') }}" class="turno-volver">
                     <i class="bi bi-arrow-left"></i>
-
-                    Volver al inicio
-
+                        Volver al inicio
                 </a>
-
-
             </div>
 
 

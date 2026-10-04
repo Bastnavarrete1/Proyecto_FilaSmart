@@ -43,6 +43,10 @@
                     Consultar turno
                 </a>
 
+                <a href="{{ url_for('codigos_qr') }}">
+                    QR
+                </a>
+
             </nav>
 
 
@@ -50,13 +54,13 @@
 
                 <a href="{{ url_for('perfil_cliente') }}" class="usuario-perfil">
                     <i class="bi bi-person-circle"></i>
-                        {{ session.get('usuario') }}
-                 </a>
+                    {{ session.get('usuario') }}
+                </a>
 
 
                 <a href="{{ url_for('cerrar_sesion') }}" class="boton-cerrar">
-                     <i class="bi bi-box-arrow-right"></i>
-                        Cerrar sesion
+                    <i class="bi bi-box-arrow-right"></i>
+                    Cerrar sesion
                 </a>
 
             </div>
@@ -118,10 +122,42 @@
                 <div class="cliente-acciones">
 
 
+                    <!-- Escanear QR -->
+
+                    <a href="{{ url_for('escanear_qr') }}"
+                       class="cliente-card card-principal">
+
+                        <div class="card-icono">
+
+                            <i class="bi bi-qr-code-scan"></i>
+
+                        </div>
+
+                        <div class="card-contenido">
+
+                            <h3>
+                                Escanear QR
+                            </h3>
+
+                            <p>
+                                Escanea el codigo QR del servicio
+                                que necesitas para obtener tu turno.
+                            </p>
+
+                            <span class="card-enlace">
+                                Escanear ahora
+                                <i class="bi bi-arrow-right"></i>
+                            </span>
+
+                        </div>
+
+                    </a>
+
+
                     <!-- Obtener turno -->
 
                     <a href="{{ url_for('obtener_turno') }}"
-                       class="cliente-card card-principal">
+                       class="cliente-card">
 
                         <div class="card-icono">
 
@@ -149,6 +185,8 @@
 
                     </a>
 
+
+                    <!-- Consultar turno -->
 
                     <a href="{{ url_for('consultar_turno') }}"
                        class="cliente-card">
@@ -179,6 +217,8 @@
 
                     </a>
 
+
+                    <!-- Gestionar turnos -->
 
                     <a href="{{ url_for('gestion_turnos') }}"
                        class="cliente-card">

@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Codigos QR - FilaSmart</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+
+</head>
+
+
+<body>
+
+    <div class="cliente-pagina">
+
+        <header class="cliente-header">
+
+            <div class="cliente-logo">
+
+                <i class="bi bi-people-fill"></i>
+
+                <span>FilaSmart</span>
+
+            </div>
+
+
+            <div class="cliente-usuario">
+
+                <a href="{{ url_for('cerrar_sesion') }}"
+                   class="boton-cerrar">
+
+                    <i class="bi bi-box-arrow-right"></i>
+
+                    Cerrar sesión
+
+                </a>
+
+            </div>
+
+        </header>
+
+
+        <main class="turno-contenido qr-pagina">
+
+            <div class="turno-tarjeta qr-contenedor">
+
+                <div class="turno-cabecera">
+
+                    <div class="turno-icono">
+
+                        <i class="bi bi-qr-code"></i>
+
+                    </div>
+
+                    <div>
+
+                        <h1>Obtener turno por QR</h1>
+
+                        <p>
+                            Escanea el código correspondiente al servicio que necesitas.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="qr-lista">
+
+                    {% for servicio in servicios %}
+
+                    <div class="qr-tarjeta">
+
+                        <h2>
+                            {{ servicio.nombre }}
+                        </h2>
+
+                        <img
+                            src="{{ url_for('qr_imagen', servicio_id=servicio.id) }}"
+                            alt="Código QR {{ servicio.nombre }}"
+                        >
+
+                        <p>
+                            Escanea este código para obtener tu turno.
+                        </p>
+
+                    </div>
+
+                    {% endfor %}
+
+                </div>
+
+
+                <a
+                    href="{{ url_for('inicio_cliente') }}"
+                    class="turno-volver"
+                >
+
+                    <i class="bi bi-arrow-left"></i>
+
+                    Volver al inicio
+
+                </a>
+
+            </div>
+
+        </main>
+
+    </div>
+
+
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+
+</body>
+
+</html>

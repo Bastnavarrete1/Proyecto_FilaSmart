@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Escanear QR - FilaSmart</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+
+</head>
+
+
+<body>
+
+    <div class="cliente-pagina">
+
+        <header class="cliente-header">
+
+            <div class="cliente-logo">
+
+                <i class="bi bi-people-fill"></i>
+
+                <span>FilaSmart</span>
+
+            </div>
+
+
+            <div class="cliente-usuario">
+
+                <a href="{{ url_for('cerrar_sesion') }}"
+                   class="boton-cerrar">
+
+                    <i class="bi bi-box-arrow-right"></i>
+
+                    Cerrar sesión
+
+                </a>
+
+            </div>
+
+        </header>
+
+
+        <main class="turno-contenido">
+
+            <div class="turno-tarjeta">
+
+                <div class="turno-cabecera">
+
+                    <div class="turno-icono">
+
+                        <i class="bi bi-qr-code-scan"></i>
+
+                    </div>
+
+                    <div>
+
+                        <h1>Escanear QR</h1>
+
+                        <p>
+                            Escanea el código QR del servicio que necesitas.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div id="lector-qr"></div>
+
+
+                <p id="mensaje-qr">
+                    Apunta la cámara hacia el código QR.
+                </p>
+
+
+                <a
+                    href="{{ url_for('inicio_cliente') }}"
+                    class="turno-volver"
+                >
+
+                    <i class="bi bi-arrow-left"></i>
+
+                    Volver al inicio
+
+                </a>
+
+            </div>
+
+        </main>
+
+    </div>
+
+
+    <script src="https://unpkg.com/html5-qrcode"></script>
+
+    <script>
+
+        function qrDetectado(texto) {
+
+            window.location.href = texto;
+
+        }
+
+
+        function errorEscaneo(error) {
+
+        }
+
+
+        const lector = new Html5Qrcode("lector-qr");
+
+
+        lector.start(
+            { facingMode: "environment" },
+            {
+                fps: 10,
+                qrbox: {
+                    width: 250,
+                    height: 250
+                }
+            },
+            qrDetectado,
+            errorEscaneo
+        );
+
+    </script>
+
+
+</body>
+
+</html>

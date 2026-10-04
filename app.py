@@ -8,6 +8,10 @@ from pymysql.cursors import DictCursor
 from flask import Flask, abort, render_template, request, session, redirect, url_for
 from werkzeug.security import check_password_hash, generate_password_hash
 
+import qrcode
+from io import BytesIO
+from flask import send_file
+
 load_dotenv()
 
 app = Flask(__name__)
@@ -202,12 +206,15 @@ def obtener_turno():
     return render_template('cliente/obtener_turno.html', servicios=servicios)
 
 
-@app.route('/cliente/turno-generado', methods=['POST'])
+@app.route('/cliente/turno-generado', methods=['GET', 'POST'])
 @login_required
 def turno_generado():
     try:
-        servicio_id = int(request.form.get('servicio', ''))
-    except ValueError:
+        servicio_id = int(
+            request.form.get('servicio')
+            if request.method == 'POST'
+            else request.args.get('servicio'))
+    except (TypeError, ValueError):
         abort(400)
     with db() as connection:
         with connection.cursor() as cursor:
@@ -225,9 +232,10 @@ def turno_generado():
             numero_turno = f"A{turno_id:03d}"
             cursor.execute('UPDATE turnos SET numero = %s WHERE id_turno = %s', (numero_turno, turno_id))
             cursor.execute('''INSERT INTO notificaciones (id_usuario,id_turno,mensaje)
-                              VALUES (%s,%s,%s)''',
-                           (session['usuario_id'], turno_id, f'Turno {numero_turno} registrado.'))
-    return render_template('cliente/turno_generado.html', numero_turno=numero_turno, servicio=servicio['nombre'])
+                              VALUES (%s,%s,%s)''', (session['usuario_id'], turno_id, f'Turno {numero_turno} registrado.'))
+    return render_template('cliente/turno_generado.html',
+                            numero_turno=numero_turno,
+                            servicio=servicio['nombre'])
 
 
 @app.route('/cliente/gestion-turnos')
@@ -448,6 +456,168 @@ def configuracion_prioridad():
             cursor.execute("SELECT valor FROM configuracion WHERE clave = 'prioridad'")
             row = cursor.fetchone()
     return render_template('admin/configuracion_prioridad.html', prioridad=row['valor'] if row else 'llegada')
+
+
+
+#--------------------------------------------------------------- Generacion de turnos por QR ---------------------------------------------------------------------------
+
+@app.route('/cliente/turno-qr/<int:servicio_id>')
+@login_required
+def turno_qr(servicio_id):
+    with db() as connection:
+        with connection.cursor() as cursor:
+            cursor.execute("""
+                SELECT f.id_fila, s.nombre
+                FROM filas f
+                JOIN servicios s ON s.id_servicio = f.id_servicio
+                JOIN sucursales u ON u.id_sucursal = s.id_sucursal
+                WHERE f.id_fila = %s
+                AND f.estado = 'activa'
+                AND s.estado = 'activo'
+                AND u.estado = 'activa'""",
+                (servicio_id,))
+            servicio = cursor.fetchone()
+
+            if not servicio:
+                abort(400)
+            cursor.execute("""INSERT INTO turnos (id_usuario, id_fila) VALUES (%s, %s)""",
+                           (session['usuario_id'], servicio['id_fila']))
+            turno_id = cursor.lastrowid
+            numero_turno = f"A{turno_id:03d}"
+            cursor.execute("""UPDATE turnos
+                SET numero = %s
+                WHERE id_turno = %s""",
+                (numero_turno, turno_id))
+            cursor.execute("""INSERT INTO notificaciones
+                            (id_usuario, id_turno, mensaje) VALUES (%s, %s, %s)""",
+                            (session['usuario_id'],
+                             turno_id,
+                             f'Turno {numero_turno} registrado.'))
+
+    return render_template(
+        'cliente/turno_generado.html',
+        numero_turno=numero_turno,
+        servicio=servicio['nombre']
+    )
+
+
+@app.route('/cliente/codigos-qr')
+@login_required
+def codigos_qr():
+
+    with db() as connection:
+        with connection.cursor() as cursor:
+
+            cursor.execute("""
+                SELECT f.id_fila AS id, s.nombre
+                FROM filas f
+                JOIN servicios s ON s.id_servicio = f.id_servicio
+                JOIN sucursales u ON u.id_sucursal = s.id_sucursal
+                WHERE f.estado = 'activa'
+                AND s.estado = 'activo'
+                AND u.estado = 'activa'
+                ORDER BY s.id_servicio
+            """)
+
+            servicios = cursor.fetchall()
+
+    return render_template(
+        'cliente/codigos_qr.html',
+        servicios=servicios
+    )
+
+
+@app.route('/cliente/qr-imagen/<int:servicio_id>')
+@login_required
+def qr_imagen(servicio_id):
+
+    qr_url = url_for(
+        'turno_qr',
+        servicio_id=servicio_id,
+        _external=True
+    )
+
+    imagen = qrcode.make(qr_url)
+
+    archivo = BytesIO()
+    imagen.save(archivo, format='PNG')
+    archivo.seek(0)
+
+    return send_file(
+        archivo,
+        mimetype='image/png'
+    )
+
+
+@app.route('/cliente/escanear-qr')
+@login_required
+def escanear_qr():
+
+    return render_template(
+        'cliente/escanear_qr.html'
+    )
+
+#--------------------------------------------------------------- Alerta de notificaciones ---------------------------------------------------------------------------
+
+
+@app.route('/cliente/estado-turno')
+@login_required
+def estado_turno():
+    with db() as connection:
+        with connection.cursor() as cursor:
+            cursor.execute("""
+                SELECT
+                    t.id_turno,
+                    t.numero,
+                    t.estado,
+                    t.id_fila
+                FROM turnos t
+                WHERE t.id_usuario = %s
+                AND t.estado IN ('Pendiente', 'En atencion')
+                ORDER BY t.id_turno DESC
+                LIMIT 1""",
+                (session['usuario_id'],))
+            turno = cursor.fetchone()
+
+            if not turno:
+                return {
+                    'tiene_turno': False
+                }
+            cursor.execute("""
+                SELECT COUNT(*) AS personas_delante
+                FROM turnos
+                WHERE id_fila = %s
+                AND estado = 'Pendiente'
+                AND id_turno < %s""",
+                (turno['id_fila'],
+                turno['id_turno']))
+            resultado = cursor.fetchone()
+    personas_delante = resultado['personas_delante']
+
+    if turno['estado'] == 'En atencion':
+        mensaje = 'Es tu turno. Dirígete a atención.'
+        alerta = 'turno'
+
+    elif personas_delante == 1:
+        mensaje = 'Tu turno está próximo. Prepárate para ser atendido.'
+        alerta = 'proximo'
+
+    else:
+        mensaje = 'Aún faltan turnos antes del tuyo.'
+        alerta = 'espera'
+
+    return {
+        'tiene_turno': True,
+        'numero': turno['numero'],
+        'estado': turno['estado'],
+        'personas_delante': personas_delante,
+        'alerta': alerta,
+        'mensaje': mensaje
+    }
+
+
+
+
 
 
 if __name__ == '__main__':

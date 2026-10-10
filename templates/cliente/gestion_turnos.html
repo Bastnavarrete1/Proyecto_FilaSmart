@@ -1,71 +1,77 @@
-<!DOCTYPE html>
-<html lang="es">
+{% extends "base.html" %}
 
-<head>
+{% block titulo %}Gestion de turnos - FilaSmart{% endblock %}
 
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+{% block contenido %}
 
-    <title>Gestion de turnos - FilaSmart</title>
-
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
-
-</head>
+<div class="cliente-pagina">
 
 
-<body>
+    <header class="cliente-header">
 
-    <div class="cliente-pagina">
+        <div class="cliente-logo">
+
+            <i class="bi bi-people-fill"></i>
+
+            <span>FilaSmart</span>
+
+        </div>
 
 
-        <header class="cliente-header">
+        <div class="cliente-usuario">
 
-            <div class="cliente-logo">
+            <a href="{{ url_for('cerrar_sesion') }}" class="boton-cerrar">
+                <i class="bi bi-box-arrow-right"></i>
+                    Cerrar sesión
+            </a>
 
-                <i class="bi bi-people-fill"></i>
+        </div>
 
-                <span>FilaSmart</span>
+    </header>
+
+
+    <!-- Contenido -->
+
+    <main class="gestion-contenido">
+
+        <div class="gestion-tarjeta">
+
+
+            <!-- Head -->
+
+            <div class="gestion-cabecera">
+
+                <div class="gestion-icono">
+
+                    <i class="bi bi-list-check"></i>
+
+                </div>
+
+
+                <div>
+
+                    <h1>Gestion de turnos</h1>
+
+                    <p>
+                        Administra tus turnos pendientes.
+                    </p>
+
+                </div>
 
             </div>
 
 
-            <div class="cliente-usuario">
-
-                <a href="{{ url_for('cerrar_sesion') }}" class="boton-cerrar">
-                    <i class="bi bi-box-arrow-right"></i>
-                        Cerrar sesión
-                </a>
-
-            </div>
-
-        </header>
+            <section class="gestion-seccion">
 
 
-        <!-- Contenido -->
-
-        <main class="gestion-contenido">
-
-            <div class="gestion-tarjeta">
-
-
-                <!-- Head -->
-
-                <div class="gestion-cabecera">
-
-                    <div class="gestion-icono">
-
-                        <i class="bi bi-list-check"></i>
-
-                    </div>
-
+                <div class="gestion-seccion-titulo">
 
                     <div>
 
-                        <h1>Gestion de turnos</h1>
+                        <h2>Turnos pendientes</h2>
 
                         <p>
-                            Administra tus turnos pendientes.
+                            Aqui puedes modificar o cancelar tus turnos.
                         </p>
 
                     </div>
@@ -73,176 +79,157 @@
                 </div>
 
 
-                <section class="gestion-seccion">
+                {% if turnos %}
+
+                    <div class="gestion-lista">
 
 
-                    <div class="gestion-seccion-titulo">
+                        {% for turno in turnos %}
 
-                        <div>
-
-                            <h2>Turnos pendientes</h2>
-
-                            <p>
-                                Aqui puedes modificar o cancelar tus turnos.
-                            </p>
-
-                        </div>
-
-                    </div>
+                            {% if turno.estado == "Pendiente" %}
 
 
-                    {% if turnos %}
-
-                        <div class="gestion-lista">
+                                <div class="gestion-turno">
 
 
-                            {% for turno in turnos %}
-
-                                {% if turno.estado == "Pendiente" %}
+                                    <div class="gestion-turno-info">
 
 
-                                    <div class="gestion-turno">
+                                        <div class="gestion-numero">
+
+                                            <span>Turno</span>
+
+                                            <strong>
+                                                {{ turno.numero }}
+                                            </strong>
+
+                                        </div>
 
 
-                                        <div class="gestion-turno-info">
+                                        <div class="gestion-datos">
 
 
-                                            <div class="gestion-numero">
+                                            <div>
 
-                                                <span>Turno</span>
+                                                <span>Servicio</span>
 
                                                 <strong>
-                                                    {{ turno.numero }}
+                                                    {{ turno.servicio }}
                                                 </strong>
 
                                             </div>
 
 
-                                            <div class="gestion-datos">
+                                            <div>
 
+                                                <span>Estado</span>
 
-                                                <div>
-
-                                                    <span>Servicio</span>
-
-                                                    <strong>
-                                                        {{ turno.servicio }}
-                                                    </strong>
-
-                                                </div>
-
-
-                                                <div>
-
-                                                    <span>Estado</span>
-
-                                                    <strong class="estado-pendiente">
-                                                        {{ turno.estado }}
-                                                    </strong>
-
-                                                </div>
-
+                                                <strong class="estado-pendiente">
+                                                    {{ turno.estado }}
+                                                </strong>
 
                                             </div>
 
-                                        </div>
-
-
-                                        <div class="gestion-acciones">
-
-
-                                            <a
-                                                href="{{ url_for('modificar_turno', numero_turno=turno.numero) }}"
-                                                class="gestion-modificar"
-                                            >
-
-                                                <i class="bi bi-pencil"></i>
-
-                                                Modificar
-
-                                            </a>
-
-
-                                            <form
-                                                action="{{ url_for('eliminar_turno', numero_turno=turno.numero) }}"
-                                                method="POST"
-                                            >
-
-                                                <button
-                                                    type="submit"
-                                                    class="gestion-cancelar"
-                                                >
-
-                                                    <i class="bi bi-x-circle"></i>
-
-                                                    Cancelar
-
-                                                </button>
-
-                                            </form>
-
 
                                         </div>
+
+                                    </div>
+
+
+                                    <div class="gestion-acciones">
+
+
+                                        <a
+                                            href="{{ url_for('modificar_turno', numero_turno=turno.numero) }}"
+                                            class="gestion-modificar"
+                                        >
+
+                                            <i class="bi bi-pencil"></i>
+
+                                            Modificar
+
+                                        </a>
+
+
+                                        <form
+                                            action="{{ url_for('eliminar_turno', numero_turno=turno.numero) }}"
+                                            method="POST"
+                                        >
+
+                                            <button
+                                                type="submit"
+                                                class="gestion-cancelar"
+                                            >
+
+                                                <i class="bi bi-x-circle"></i>
+
+                                                Cancelar
+
+                                            </button>
+
+                                        </form>
 
 
                                     </div>
 
 
-                                {% endif %}
-
-                            {% endfor %}
+                                </div>
 
 
-                        </div>
+                            {% endif %}
+
+                        {% endfor %}
 
 
-                    {% else %}
+                    </div>
 
 
-                        <div class="gestion-vacio">
+                {% else %}
 
 
-                            <div class="gestion-vacio-icono">
-
-                                <i class="bi bi-check2-circle"></i>
-
-                            </div>
+                    <div class="gestion-vacio">
 
 
-                            <h3>No hay turnos pendientes</h3>
+                        <div class="gestion-vacio-icono">
 
-
-                            <p>
-                                Actualmente no tienes turnos pendientes.
-                            </p>
-
+                            <i class="bi bi-check2-circle"></i>
 
                         </div>
 
 
-                    {% endif %}
+                        <h3>No hay turnos pendientes</h3>
 
 
-                </section>
-
-                
-                <!-- Volver inicio -->
-
-                <a href="{{ url_for('inicio_cliente') }}" class="perfil-volver">
-                    <i class="bi bi-arrow-left"></i>
-                        Volver al inicio
-                </a>
+                        <p>
+                            Actualmente no tienes turnos pendientes.
+                        </p>
 
 
-            </div>
-
-        </main>
-
-    </div>
+                    </div>
 
 
-    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+                {% endif %}
 
-</body>
 
-</html>
+            </section>
+
+            
+            <!-- Volver inicio -->
+
+            <a href="{{ url_for('inicio_cliente') }}" class="perfil-volver">
+                <i class="bi bi-arrow-left"></i>
+                    Volver al inicio
+            </a>
+
+
+        </div>
+
+    </main>
+
+</div>
+
+{% endblock %}
+
+{% block scripts_extra %}
+<script src="{{ url_for('static', filename='js/script.js') }}"></script>
+{% endblock %}

@@ -1,322 +1,309 @@
-<!DOCTYPE html>
-<html lang="es">
+{% extends "base.html" %}
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+{% block titulo %}Inicio - FilaSmart{% endblock %}
 
-    <title>Inicio - FilaSmart</title>
+{% block contenido %}
 
-    <link rel="stylesheet"
-          href="{{ url_for('static', filename='css/style.css') }}">
+<div class="cliente-pagina">
 
-    <link rel="stylesheet"
-          href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
-</head>
+    <header class="cliente-header">
 
-<body>
+        <div class="cliente-logo">
 
-    <div class="cliente-pagina">
+            <i class="bi bi-people-fill"></i>
 
-        <header class="cliente-header">
+            <span>FilaSmart</span>
 
-            <div class="cliente-logo">
+        </div>
 
-                <i class="bi bi-people-fill"></i>
 
-                <span>FilaSmart</span>
+        <nav class="cliente-nav">
+
+            <a href="{{ url_for('inicio_cliente') }}" class="nav-activo">
+                Inicio
+            </a>
+
+            <a href="{{ url_for('obtener_turno') }}">
+                Obtener turno
+            </a>
+
+            <a href="{{ url_for('consultar_turno') }}">
+                Consultar turno
+            </a>
+
+            <a href="{{ url_for('codigos_qr') }}">
+                QR
+            </a>
+
+        </nav>
+
+
+        <div class="cliente-usuario">
+
+            <a href="{{ url_for('perfil_cliente') }}" class="usuario-perfil">
+                <i class="bi bi-person-circle"></i>
+                {{ session.get('usuario') }}
+            </a>
+
+
+            <a href="{{ url_for('cerrar_sesion') }}" class="boton-cerrar">
+                <i class="bi bi-box-arrow-right"></i>
+                Cerrar sesion
+            </a>
+
+        </div>
+
+
+    </header>
+
+
+    <main class="cliente-contenido">
+
+
+        <section class="cliente-bienvenida">
+
+            <div>
+
+                <span class="etiqueta-bienvenida">
+                    FilaSmart
+                </span>
+
+                <h1>
+                    Tu turno,<br>
+                    <span>mas simple.</span>
+                </h1>
+
+                <p>
+                    Obten tu numero de atencion, consulta tu posicion
+                    y evita esperar innecesariamente.
+                </p>
 
             </div>
 
 
-            <nav class="cliente-nav">
+            <div class="bienvenida-icono">
 
-                <a href="{{ url_for('inicio_cliente') }}" class="nav-activo">
-                    Inicio
-                </a>
-
-                <a href="{{ url_for('obtener_turno') }}">
-                    Obtener turno
-                </a>
-
-                <a href="{{ url_for('consultar_turno') }}">
-                    Consultar turno
-                </a>
-
-                <a href="{{ url_for('codigos_qr') }}">
-                    QR
-                </a>
-
-            </nav>
-
-
-            <div class="cliente-usuario">
-
-                <a href="{{ url_for('perfil_cliente') }}" class="usuario-perfil">
-                    <i class="bi bi-person-circle"></i>
-                    {{ session.get('usuario') }}
-                </a>
-
-
-                <a href="{{ url_for('cerrar_sesion') }}" class="boton-cerrar">
-                    <i class="bi bi-box-arrow-right"></i>
-                    Cerrar sesion
-                </a>
+                <i class="bi bi-ticket-perforated"></i>
 
             </div>
 
-
-        </header>
-
-
-        <main class="cliente-contenido">
+        </section>
 
 
-            <section class="cliente-bienvenida">
+        <!-- La eleccion de las opciones -->
+
+        <section class="cliente-seccion">
+
+            <div class="seccion-titulo">
 
                 <div>
-
-                    <span class="etiqueta-bienvenida">
-                        FilaSmart
-                    </span>
-
-                    <h1>
-                        Tu turno,<br>
-                        <span>mas simple.</span>
-                    </h1>
+                    <h2>Que necesitas hacer?</h2>
 
                     <p>
-                        Obten tu numero de atencion, consulta tu posicion
-                        y evita esperar innecesariamente.
+                        Selecciona una opcion para continuar.
                     </p>
-
                 </div>
 
-
-                <div class="bienvenida-icono">
-
-                    <i class="bi bi-ticket-perforated"></i>
-
-                </div>
-
-            </section>
+            </div>
 
 
-            <!-- La eleccion de las opciones -->
+            <div class="cliente-acciones">
 
-            <section class="cliente-seccion">
 
-                <div class="seccion-titulo">
+                <!-- Escanear QR -->
 
-                    <div>
-                        <h2>Que necesitas hacer?</h2>
+                <a href="{{ url_for('escanear_qr') }}"
+                   class="cliente-card card-principal">
+
+                    <div class="card-icono">
+
+                        <i class="bi bi-qr-code-scan"></i>
+
+                    </div>
+
+                    <div class="card-contenido">
+
+                        <h3>
+                            Escanear QR
+                        </h3>
 
                         <p>
-                            Selecciona una opcion para continuar.
+                            Escanea el codigo QR del servicio
+                            que necesitas para obtener tu turno.
                         </p>
+
+                        <span class="card-enlace">
+                            Escanear ahora
+                            <i class="bi bi-arrow-right"></i>
+                        </span>
+
                     </div>
 
-                </div>
+                </a>
 
 
-                <div class="cliente-acciones">
+                <!-- Obtener turno -->
 
+                <a href="{{ url_for('obtener_turno') }}"
+                   class="cliente-card">
 
-                    <!-- Escanear QR -->
+                    <div class="card-icono">
 
-                    <a href="{{ url_for('escanear_qr') }}"
-                       class="cliente-card card-principal">
+                        <i class="bi bi-caret-right-square"></i>
 
-                        <div class="card-icono">
-
-                            <i class="bi bi-qr-code-scan"></i>
-
-                        </div>
-
-                        <div class="card-contenido">
-
-                            <h3>
-                                Escanear QR
-                            </h3>
-
-                            <p>
-                                Escanea el codigo QR del servicio
-                                que necesitas para obtener tu turno.
-                            </p>
-
-                            <span class="card-enlace">
-                                Escanear ahora
-                                <i class="bi bi-arrow-right"></i>
-                            </span>
-
-                        </div>
-
-                    </a>
-
-
-                    <!-- Obtener turno -->
-
-                    <a href="{{ url_for('obtener_turno') }}"
-                       class="cliente-card">
-
-                        <div class="card-icono">
-
-                            <i class="bi bi-caret-right-square"></i>
-
-                        </div>
-
-                        <div class="card-contenido">
-
-                            <h3>
-                                Obtener turno
-                            </h3>
-
-                            <p>
-                                Solicita un numero de atencion
-                                y espera tu turno sin hacer fila.
-                            </p>
-
-                            <span class="card-enlace">
-                                Sacar numero
-                                <i class="bi bi-arrow-right"></i>
-                            </span>
-
-                        </div>
-
-                    </a>
-
-
-                    <!-- Consultar turno -->
-
-                    <a href="{{ url_for('consultar_turno') }}"
-                       class="cliente-card">
-
-                        <div class="card-icono">
-
-                            <i class="bi bi-search"></i>
-
-                        </div>
-
-                        <div class="card-contenido">
-
-                            <h3>
-                                Consultar turno
-                            </h3>
-
-                            <p>
-                                Revisa tu numero actual,
-                                posicion y estado de atencion.
-                            </p>
-
-                            <span class="card-enlace">
-                                Consultar
-                                <i class="bi bi-arrow-right"></i>
-                            </span>
-
-                        </div>
-
-                    </a>
-
-
-                    <!-- Gestionar turnos -->
-
-                    <a href="{{ url_for('gestion_turnos') }}"
-                       class="cliente-card">
-
-                        <div class="card-icono">
-
-                            <i class="bi bi-list-check"></i>
-
-                        </div>
-
-                        <div class="card-contenido">
-
-                            <h3>
-                                Gestionar turnos
-                            </h3>
-
-                            <p>
-                                Administra y gestiona los turnos
-                                correspondientes a tu atencion.
-                            </p>
-
-                            <span class="card-enlace">
-                                Gestionar
-                                <i class="bi bi-arrow-right"></i>
-                            </span>
-
-                        </div>
-
-                    </a>
-
-                </div>
-
-            </section>
-
-
-            <!-- Informacion -->
-
-            <section class="cliente-informacion">
-
-                <div class="informacion-item">
-
-                    <div class="informacion-icono">
-                        <i class="bi bi-clock"></i>
                     </div>
 
-                    <div>
-                        <strong>Ahorra tiempo</strong>
+                    <div class="card-contenido">
+
+                        <h3>
+                            Obtener turno
+                        </h3>
 
                         <p>
-                            Evita esperar innecesariamente.
+                            Solicita un numero de atencion
+                            y espera tu turno sin hacer fila.
                         </p>
+
+                        <span class="card-enlace">
+                            Sacar numero
+                            <i class="bi bi-arrow-right"></i>
+                        </span>
+
                     </div>
 
-                </div>
+                </a>
 
 
-                <div class="informacion-item">
+                <!-- Consultar turno -->
 
-                    <div class="informacion-icono">
-                        <i class="bi bi-phone"></i>
+                <a href="{{ url_for('consultar_turno') }}"
+                   class="cliente-card">
+
+                    <div class="card-icono">
+
+                        <i class="bi bi-search"></i>
+
                     </div>
 
-                    <div>
-                        <strong>Desde cualquier dispositivo</strong>
+                    <div class="card-contenido">
+
+                        <h3>
+                            Consultar turno
+                        </h3>
 
                         <p>
-                            Consulta tu turno donde quieras.
+                            Revisa tu numero actual,
+                            posicion y estado de atencion.
                         </p>
+
+                        <span class="card-enlace">
+                            Consultar
+                            <i class="bi bi-arrow-right"></i>
+                        </span>
+
                     </div>
 
-                </div>
+                </a>
 
 
-                <div class="informacion-item">
+                <!-- Gestionar turnos -->
 
-                    <div class="informacion-icono">
-                        <i class="bi bi-bell"></i>
+                <a href="{{ url_for('gestion_turnos') }}"
+                   class="cliente-card">
+
+                    <div class="card-icono">
+
+                        <i class="bi bi-list-check"></i>
+
                     </div>
 
-                    <div>
-                        <strong>Mantente informado</strong>
+                    <div class="card-contenido">
+
+                        <h3>
+                            Gestionar turnos
+                        </h3>
 
                         <p>
-                            Conoce el estado de tu atencion.
+                            Administra y gestiona los turnos
+                            correspondientes a tu atencion.
                         </p>
+
+                        <span class="card-enlace">
+                            Gestionar
+                            <i class="bi bi-arrow-right"></i>
+                        </span>
+
                     </div>
 
+                </a>
+
+            </div>
+
+        </section>
+
+
+        <!-- Informacion -->
+
+        <section class="cliente-informacion">
+
+            <div class="informacion-item">
+
+                <div class="informacion-icono">
+                    <i class="bi bi-clock"></i>
                 </div>
 
-            </section>
+                <div>
+                    <strong>Ahorra tiempo</strong>
 
-        </main>
+                    <p>
+                        Evita esperar innecesariamente.
+                    </p>
+                </div>
 
-    </div>
+            </div>
 
 
-    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+            <div class="informacion-item">
 
-</body>
+                <div class="informacion-icono">
+                    <i class="bi bi-phone"></i>
+                </div>
 
-</html>
+                <div>
+                    <strong>Desde cualquier dispositivo</strong>
+
+                    <p>
+                        Consulta tu turno donde quieras.
+                    </p>
+                </div>
+
+            </div>
+
+
+            <div class="informacion-item">
+
+                <div class="informacion-icono">
+                    <i class="bi bi-bell"></i>
+                </div>
+
+                <div>
+                    <strong>Mantente informado</strong>
+
+                    <p>
+                        Conoce el estado de tu atencion.
+                    </p>
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+</div>
+
+{% endblock %}
+
+{% block scripts_extra %}
+<script src="{{ url_for('static', filename='js/script.js') }}"></script>
+{% endblock %}

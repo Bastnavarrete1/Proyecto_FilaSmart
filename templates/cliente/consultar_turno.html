@@ -1,19 +1,8 @@
-<!DOCTYPE html>
+{% extends "base.html" %}
 
-<html lang="es">
+{% block titulo %}Consultar turno - FilaSmart{% endblock %}
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>Consultar turno - FilaSmart</title>
-
-<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
-
-</head>
-
-<body>
+{% block contenido %}
 
 <div class="cliente-pagina">
 
@@ -271,9 +260,8 @@
 
 </div>
 
+{% endblock %}
 
+{% block scripts_extra %}
 <script src="{{ url_for('static', filename='js/script.js') }}"></script>
-
-</body>
-
-</html>
+{% endblock %}

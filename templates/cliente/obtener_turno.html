@@ -1,186 +1,176 @@
-<!DOCTYPE html>
-<html lang="es">
+{% extends "base.html" %}
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+{% block titulo %}Obtener turno - FilaSmart{% endblock %}
 
-    <title>Obtener turno - FilaSmart</title>
+{% block contenido %}
 
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css', v='2') }}">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
-</head>
+<div class="turno-pagina">
 
-<body>
+    <header class="turno-header">
 
-    <div class="turno-pagina">
+        <a href="{{ url_for('inicio') }}" class="turno-logo">
+            <i class="bi bi-people-fill"></i>
+            <span>FilaSmart</span>
+        </a>
 
-        <header class="turno-header">
+        <div class="cliente-usuario">
 
-            <a href="{{ url_for('inicio') }}" class="turno-logo">
-                <i class="bi bi-people-fill"></i>
-                <span>FilaSmart</span>
+            <a href="{{ url_for('cerrar_sesion') }}" class="boton-cerrar">
+                <i class="bi bi-box-arrow-right"></i>
+                    Cerrar sesión
             </a>
 
-            <div class="cliente-usuario">
+        </div>
 
-                <a href="{{ url_for('cerrar_sesion') }}" class="boton-cerrar">
-                    <i class="bi bi-box-arrow-right"></i>
-                        Cerrar sesión
-                </a>
+    </header>
 
+
+    <main class="turno-contenido">
+
+        <div class="turno-cabecera">
+
+            <span class="turno-etiqueta">
+                Solicitar su turno
+            </span>
+
+            <h1>
+                ¿Que tramite necesitas realizar?
+            </h1>
+
+            <p>
+                Selecciona el servicio que necesitas para obtener tu numero de atencion.
+            </p>
+
+        </div>
+
+
+        <section class="turno-tarjeta">
+
+            <div class="turno-icono">
+                <i class="bi bi-ticket-perforated"></i>
             </div>
 
-        </header>
+            <div class="turno-texto">
 
-
-        <main class="turno-contenido">
-
-            <div class="turno-cabecera">
-
-                <span class="turno-etiqueta">
-                    Solicitar su turno
-                </span>
-
-                <h1>
-                    ¿Que tramite necesitas realizar?
-                </h1>
+                <h2>
+                    Selecciona un servicio
+                </h2>
 
                 <p>
-                    Selecciona el servicio que necesitas para obtener tu numero de atencion.
+                    Elige el tipo de atencion que deseas realizar.
                 </p>
 
             </div>
 
 
-            <section class="turno-tarjeta">
+            <form action="{{ url_for('turno_generado') }}" method="POST" class="turno-form">
 
-                <div class="turno-icono">
-                    <i class="bi bi-ticket-perforated"></i>
-                </div>
+                <div class="turno-campo">
 
-                <div class="turno-texto">
+                    <label for="servicio">
+                        Servicio
+                    </label>
 
-                    <h2>
-                        Selecciona un servicio
-                    </h2>
+                    <div class="turno-select">
 
-                    <p>
-                        Elige el tipo de atencion que deseas realizar.
-                    </p>
+                        <i class="bi bi-list-check"></i>
 
-                </div>
+                        <select
+                            id="servicio"
+                            name="servicio"
+                            required
+                        >
 
+                            <option value="">
+                                Seleccione un servicio
+                            </option>
 
-                <form action="{{ url_for('turno_generado') }}" method="POST" class="turno-form">
+                            {% for servicio in servicios %}
 
-                    <div class="turno-campo">
-
-                        <label for="servicio">
-                            Servicio
-                        </label>
-
-                        <div class="turno-select">
-
-                            <i class="bi bi-list-check"></i>
-
-                            <select
-                                id="servicio"
-                                name="servicio"
-                                required
-                            >
-
-                                <option value="">
-                                    Seleccione un servicio
+                                <option value="{{ servicio.id }}">
+                                    {{ servicio.nombre }}
                                 </option>
 
-                                {% for servicio in servicios %}
+                            {% endfor %}
 
-                                    <option value="{{ servicio.id }}">
-                                        {{ servicio.nombre }}
-                                    </option>
+                        </select>
 
-                                {% endfor %}
-
-                            </select>
-
-                        </div>
-
-                    </div>
-
-
-                    <button type="submit" class="turno-boton">
-
-                        <span>
-                            Solicitar turno
-                        </span>
-
-                        <i class="bi bi-arrow-right"></i>
-
-                    </button>
-
-                </form>
-
-                <a href="{{ url_for('inicio_cliente') }}" class="perfil-volver">
-                    <i class="bi bi-arrow-left"></i>
-                        Volver al inicio
-                </a>
-
-            </section>
-
-
-            <div class="turno-informacion">
-
-                <div class="turno-info-item">
-
-                    <div class="turno-info-icono">
-                        <i class="bi bi-clock"></i>
-                    </div>
-
-                    <div>
-                        <strong>Ahorra tiempo</strong>
-                        <p>Evita esperar en filas innecesarias.</p>
                     </div>
 
                 </div>
 
 
-                <div class="turno-info-item">
+                <button type="submit" class="turno-boton">
 
-                    <div class="turno-info-icono">
-                        <i class="bi bi-phone"></i>
-                    </div>
+                    <span>
+                        Solicitar turno
+                    </span>
 
-                    <div>
-                        <strong>Consulta facilmente</strong>
-                        <p>Revisa el estado de tu turno cuando quieras.</p>
-                    </div>
+                    <i class="bi bi-arrow-right"></i>
 
+                </button>
+
+            </form>
+
+            <a href="{{ url_for('inicio_cliente') }}" class="perfil-volver">
+                <i class="bi bi-arrow-left"></i>
+                    Volver al inicio
+            </a>
+
+        </section>
+
+
+        <div class="turno-informacion">
+
+            <div class="turno-info-item">
+
+                <div class="turno-info-icono">
+                    <i class="bi bi-clock"></i>
                 </div>
 
-
-                <div class="turno-info-item">
-
-                    <div class="turno-info-icono">
-                        <i class="bi bi-shield-check"></i>
-                    </div>
-
-                    <div>
-                        <strong>Proceso sencillo</strong>
-                        <p>Obten tu numero de atencion rapidamente.</p>
-                    </div>
-
+                <div>
+                    <strong>Ahorra tiempo</strong>
+                    <p>Evita esperar en filas innecesarias.</p>
                 </div>
 
             </div>
 
-        </main>
 
-    </div>
+            <div class="turno-info-item">
+
+                <div class="turno-info-icono">
+                    <i class="bi bi-phone"></i>
+                </div>
+
+                <div>
+                    <strong>Consulta facilmente</strong>
+                    <p>Revisa el estado de tu turno cuando quieras.</p>
+                </div>
+
+            </div>
 
 
-    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+            <div class="turno-info-item">
 
-</body>
+                <div class="turno-info-icono">
+                    <i class="bi bi-shield-check"></i>
+                </div>
 
-</html>
+                <div>
+                    <strong>Proceso sencillo</strong>
+                    <p>Obten tu numero de atencion rapidamente.</p>
+                </div>
+
+            </div>
+
+        </div>
+
+    </main>
+
+</div>
+
+{% endblock %}
+
+{% block scripts_extra %}
+<script src="{{ url_for('static', filename='js/script.js') }}"></script>
+{% endblock %}

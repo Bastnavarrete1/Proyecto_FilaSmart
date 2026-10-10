@@ -1,64 +1,73 @@
-<!DOCTYPE html>
-<html lang="es">
+{% extends "base.html" %}
 
-<head>
+{% block titulo %}Turno generado - FilaSmart{% endblock %}
 
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+{% block contenido %}
 
-    <title>Turno generado - FilaSmart</title>
+<div class="cliente-pagina">
+    <header class="cliente-header">
+        <div class="cliente-logo">
 
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+            <i class="bi bi-people-fill"></i>
 
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+            <span>FilaSmart</span>
 
-</head>
+        </div>
 
 
-<body>
+        <div class="cliente-usuario">
 
-    <div class="cliente-pagina">
-        <header class="cliente-header">
-            <div class="cliente-logo">
+            <a href="{{ url_for('cerrar_sesion') }}" class="boton-cerrar">
+                <i class="bi bi-box-arrow-right"></i>
+                    Cerrar sesion
+            </a>
+        </div>
 
-                <i class="bi bi-people-fill"></i>
+    </header>
 
-                <span>FilaSmart</span>
+
+    <main class="turno-contenido">
+
+
+        <div class="turno-tarjeta">
+
+            <div class="turno-cabecera">
+
+                <div class="turno-icono">
+
+                    <i class="bi bi-check-circle"></i>
+
+                </div>
+
+
+                <div>
+
+                    <h1>Turno generado</h1>
+
+                    <p>
+                        Tu turno ha sido generado correctamente.
+                    </p>
+
+                </div>
 
             </div>
 
 
-            <div class="cliente-usuario">
-
-                <a href="{{ url_for('cerrar_sesion') }}" class="boton-cerrar">
-                    <i class="bi bi-box-arrow-right"></i>
-                        Cerrar sesion
-                </a>
-            </div>
-
-        </header>
+            <section class="turno-generado">
 
 
-        <main class="turno-contenido">
+                <div class="turno-generado-mensaje">
 
-
-            <div class="turno-tarjeta">
-
-                <div class="turno-cabecera">
-
-                    <div class="turno-icono">
-
-                        <i class="bi bi-check-circle"></i>
-
-                    </div>
-
+                    <i class="bi bi-check-circle-fill"></i>
 
                     <div>
 
-                        <h1>Turno generado</h1>
+                        <h2>
+                            Ya estas en la fila!
+                        </h2>
 
                         <p>
-                            Tu turno ha sido generado correctamente.
+                            Con tu numero podras saber tu estado y tiempo aproximado de espera en la seccion "Consultar turno"
                         </p>
 
                     </div>
@@ -66,86 +75,63 @@
                 </div>
 
 
-                <section class="turno-generado">
+                <div class="turno-generado-numero">
 
+                    <span>
+                        Tu numero de turno
+                    </span>
 
-                    <div class="turno-generado-mensaje">
+                    <strong>
+                        {{ numero_turno }}
+                    </strong>
 
-                        <i class="bi bi-check-circle-fill"></i>
-
-                        <div>
-
-                            <h2>
-                                Ya estas en la fila!
-                            </h2>
-
-                            <p>
-                                Con tu numero podras saber tu estado y tiempo aproximado de espera en la seccion "Consultar turno"
-                            </p>
-
-                        </div>
-
-                    </div>
-
-
-                    <div class="turno-generado-numero">
-
-                        <span>
-                            Tu numero de turno
-                        </span>
-
-                        <strong>
-                            {{ numero_turno }}
-                        </strong>
-
-                    </div>
-
-
-                    <div class="turno-generado-servicio">
-
-                        <span>
-                            Servicio seleccionado
-                        </span>
-
-                        <strong>
-                            {{ servicio }}
-                        </strong>
-
-                    </div>
-
-
-                </section>
-
-
-                <div class="turno-generado-acciones">
-
-
-                    <a href="{{ url_for('consultar_turno', turno=numero_turno) }}" class="turno-boton">
-                        <i class="bi bi-search"></i>
-                            Consultar turno
-                    </a>
-
-
-                    <a href="{{ url_for('obtener_turno') }}" class="turno-secundario">
-                        <i class="bi bi-plus-circle"></i>
-                            Obtener otro turno
-                    </a>
                 </div>
 
 
-                <a href="{{ url_for('inicio_cliente') }}" class="turno-volver">
-                    <i class="bi bi-arrow-left"></i>
-                        Volver al inicio
+                <div class="turno-generado-servicio">
+
+                    <span>
+                        Servicio seleccionado
+                    </span>
+
+                    <strong>
+                        {{ servicio }}
+                    </strong>
+
+                </div>
+
+
+            </section>
+
+
+            <div class="turno-generado-acciones">
+
+
+                <a href="{{ url_for('consultar_turno', turno=numero_turno) }}" class="turno-boton">
+                    <i class="bi bi-search"></i>
+                        Consultar turno
+                </a>
+
+
+                <a href="{{ url_for('obtener_turno') }}" class="turno-secundario">
+                    <i class="bi bi-plus-circle"></i>
+                        Obtener otro turno
                 </a>
             </div>
 
-        </main>
 
-    </div>
+            <a href="{{ url_for('inicio_cliente') }}" class="perfil-volver">
+                <i class="bi bi-arrow-left"></i>
+                    Volver al inicio
+            </a>
+        </div>
 
+    </main>
 
-    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</div>
 
-</body>
+{% endblock %}
 
-</html>
+{% block scripts_extra %}
+<script src="{{ url_for('static', filename='js/script.js') }}"></script>
+{% endblock %}

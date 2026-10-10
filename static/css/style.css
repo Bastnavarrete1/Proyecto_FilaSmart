@@ -51,13 +51,13 @@ body {
     font-size: 60px;
 }
 
-.logo h1 {
+.logo-icono h1 {
     margin: 0;
     font-size: 38px;
     font-weight: bold;
 }
 
-.logo p {
+.logo-icono p {
     margin-top: 8px;
     color: #d8deea;
     font-size: 15px;
@@ -226,17 +226,6 @@ a {
 
 .boton-secundario:hover {
     background-color: #f5f7fa;
-}
-
-
-
-/* Este lleva al boton de registro */
-
-.texto-registro {
-    margin: 25px 0 0;
-    color: #667085;
-    text-align: center;
-    font-size: 14px;
 }
 
 
@@ -1371,37 +1360,6 @@ a {
     font-size: 30px;
 }
 
-/* Boton volver al inicio */
-
-.cliente-header .turno-volver {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: 7px;
-    width: fit-content;
-    margin: 0;
-    padding: 9px 14px;
-    border: 1px solid #2563c7;
-    border-radius: 7px;
-    background-color: #e7f0ff;
-    color: #2563c7;
-    font-size: 13px;
-    font-weight: bold;
-    text-decoration: none;
-    cursor: pointer;
-    transition:
-        background-color 0.2s,
-        color 0.2s,
-        border-color 0.2s;
-}
-
-
-.cliente-header .turno-volver:hover {
-    background-color: #2563c7;
-    border-color: #2563c7;
-    color: white;
-}
-
 
 /* Contenido */
 
@@ -1491,11 +1449,6 @@ a {
 }
 
 
-.turno-icono .bi {
-    font-size: 27px;
-}
-
-
 /* Texto de la tarjeta */
 
 .turno-texto h2 {
@@ -1518,20 +1471,6 @@ a {
     display: flex;
     flex-direction: column;
     gap: 22px;
-}
-
-
-.turno-campo {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-}
-
-
-.turno-campo label {
-    color: #303b55;
-    font-size: 14px;
-    font-weight: bold;
 }
 
 
@@ -1581,33 +1520,6 @@ a {
     color: #172033;
     font-size: 14px;
     cursor: pointer;
-}
-
-
-/* Boton solicitar turno*/
-
-.turno-boton {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-    width: 100%;
-    min-height: 52px;
-    margin: 0;
-    border: none;
-    border-radius: 8px;
-    background: #2563c7;
-    color: white;
-    font-size: 15px;
-    font-weight: bold;
-    cursor: pointer;
-    transition: background-color 0.2s, transform 0.2s;
-}
-
-
-.turno-boton:hover {
-    background: #174ea6;
-    transform: translateY(-1px);
 }
 
 
@@ -1701,11 +1613,6 @@ a {
     }
 
 
-    .turno-volver {
-        padding: 8px 10px;
-    }
-
-
     .turno-etiqueta {
         font-size: 11px;
     }
@@ -1745,38 +1652,6 @@ a {
     color: #2563c7;
     font-size: 27px;
 }
-
-
-/* Boton volver al inicio */
-
-.cliente-header .turno-volver {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: 7px;
-    margin: 0;
-    padding: 9px 14px;
-    border: 1px solid #2563c7;
-    border-radius: 7px;
-    background-color: #e7f0ff;
-    color: #2563c7;
-    font-size: 13px;
-    font-weight: bold;
-    text-decoration: none;
-    cursor: pointer;
-    transition:
-        background-color 0.2s,
-        color 0.2s,
-        border-color 0.2s;
-}
-
-
-.cliente-header .turno-volver:hover {
-    background-color: #2563c7;
-    border-color: #2563c7;
-    color: white;
-}
-
 
 /* Contenido */
 
@@ -1850,20 +1725,6 @@ a {
 }
 
 
-.turno-campo {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-}
-
-
-.turno-campo label {
-    color: #303b55;
-    font-size: 14px;
-    font-weight: bold;
-}
-
-
 /* Campo numero de turno */
 
 .turno-input {
@@ -1901,35 +1762,6 @@ a {
     background: transparent;
     color: #172033;
     font-size: 15px;
-}
-
-
-/* Boton consultar */
-
-.turno-boton {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-    width: 100%;
-    min-height: 50px;
-    margin: 5px 0 0;
-    border: none;
-    border-radius: 8px;
-    background-color: #4b7fc4;
-    color: white;
-    font-size: 15px;
-    font-weight: bold;
-    cursor: pointer;
-    transition:
-        background-color 0.2s,
-        transform 0.2s;
-}
-
-
-.turno-boton:hover {
-    background-color: #3b6da9;
-    transform: translateY(-1px);
 }
 
 
@@ -2165,12 +1997,6 @@ a {
 
     .cliente-logo .bi {
         font-size: 24px;
-    }
-
-
-    .cliente-header .turno-volver {
-        padding: 8px 10px;
-        font-size: 12px;
     }
 
 
@@ -2476,31 +2302,6 @@ a {
     margin: 0;
     color: #667085;
     font-size: 13px;
-}
-
-/* Volver */
-
-.gestion-tarjeta > .turno-volver {
-    display: inline-flex;
-    align-items: center;
-    gap: 7px;
-    width: fit-content;
-    padding: 9px 14px;
-    margin-top: 28px;
-    border: 1px solid #2563c7;
-    border-radius: 7px;
-    background-color: #e7f0ff;
-    color: #2563c7;
-    font-size: 18px;
-    font-weight: bold;
-    text-decoration: none;
-    transition: background-color 0.2s, color 0.2s;
-}
-
-
-.gestion-tarjeta > .turno-volver:hover {
-    background-color: #2563c7;
-    color: white;
 }
 
 
@@ -2940,30 +2741,6 @@ font-size: 15px;
 word-break: break-word;
 }
 
-/* Informacion */
-
-.perfil-informacion {
-display: flex;
-align-items: flex-start;
-gap: 10px;
-margin-top: 20px;
-padding: 15px;
-border-radius: 9px;
-background-color: #f2f6fa;
-color: #667085;
-}
-
-.perfil-informacion .bi {
-flex-shrink: 0;
-margin-top: 1px;
-color: #397ac2;
-}
-
-.perfil-informacion p {
-margin: 0;
-font-size: 13px;
-line-height: 1.5;
-}
 
 /* Volver */
 
@@ -3113,32 +2890,6 @@ color: #227bd4;
 }
 
 
-.turno-generado-info {
-    display: flex;
-    align-items: flex-start;
-    gap: 10px;
-    margin-top: 18px;
-    padding: 15px;
-    border-radius: 9px;
-    background-color: #f2f6fa;
-    color: #667085;
-}
-
-
-.turno-generado-info .bi {
-    flex-shrink: 0;
-    margin-top: 1px;
-    color: #397ac2;
-}
-
-
-.turno-generado-info p {
-    margin: 0;
-    font-size: 13px;
-    line-height: 1.5;
-}
-
-
 .turno-generado-acciones {
     display: flex;
     flex-direction: column;
@@ -3181,10 +2932,6 @@ color: #227bd4;
     color: #315f91;
 }
 
-
-.turno-generado-acciones + .turno-volver {
-    margin-top: 25px;
-}
 
 
 /* ----------------------------------------------------------------Para los QR ----------------------------------------------------------------*/

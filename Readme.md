@@ -12,7 +12,7 @@ El proyecto busca permitir la gestion virtual de filas y turnos, entregando info
 
 En desarrollo.
 
-Actualmente se encuentra en la etapa inicial de planificacion y desarrollo la cual se abordara proximamente
+Actualmente ya se trabajaba con un prototipo el cual se seguira desarrollando durante el tiempo para mejorar algunos apartados.
 
 # Tecnologias Utilizadas
 

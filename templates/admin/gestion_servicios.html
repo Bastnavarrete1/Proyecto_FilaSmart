@@ -33,6 +33,7 @@
             <h3>Agregar servicio</h3>
 
             <form action="{{ url_for('agregar_servicio') }}" method="POST">
+                <input type="hidden" name="csrf_token" value="<input type="hidden" name="csrf_token" value="{{ csrf_token() }}">">
 
                 <label for="servicio">
                     Nombre del servicio:

@@ -12,3 +12,6 @@ venv/
 
 # Variables
 .env
+
+#Ignorar los archivos
+.DS_Store

@@ -60,11 +60,8 @@
 
             <!-- Formulario -->
 
-            <form
-                action="{{ url_for('consultar_turno') }}"
-                method="GET"
-                class="turno-form"
-            >
+            <form action="{{ url_for('consultar_turno') }}" method="GET" class="turno-form">
+                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
 
                 <div class="turno-campo">
 

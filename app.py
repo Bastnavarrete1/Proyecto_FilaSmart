@@ -7,19 +7,30 @@ import pymysql
 from pymysql.cursors import DictCursor
 from flask import Flask, abort, render_template, request, session, redirect, url_for
 from werkzeug.security import check_password_hash, generate_password_hash
+from flask_wtf.csrf import CSRFProtect
 
 import qrcode
 from io import BytesIO
 from flask import send_file
+from flask_limiter import Limiter
+from flask_limiter.util import get_remote_address
 
 load_dotenv()
 
 app = Flask(__name__)
-app.secret_key = os.environ.get('FLASK_SECRET_KEY', 'solo-desarrollo-cambiar-esta-clave')
+limiter = Limiter(
+    get_remote_address,
+    app=app,
+    default_limits=[]
+)
+app.secret_key = os.environ['FLASK_SECRET_KEY']
+csrf = CSRFProtect(app)
 
 
 @contextmanager
 def db():
+    ssl_ca = os.environ.get('DB_SSL_CA')
+
     connection = pymysql.connect(
         host=os.environ['DB_HOST'],
         port=int(os.environ.get('DB_PORT', '3306')),
@@ -29,9 +40,7 @@ def db():
         charset='utf8mb4',
         cursorclass=DictCursor,
         autocommit=False,
-        ssl={
-            'ca': os.environ['DB_SSL_CA']
-        }
+        ssl={'ca': ssl_ca} if ssl_ca else None
     )
 
     try:
@@ -42,26 +51,6 @@ def db():
         raise
     finally:
         connection.close()
-
-@app.route('/test-db')
-def test_db():
-    try:
-        with db() as connection:
-            with connection.cursor() as cursor:
-                cursor.execute("SELECT VERSION() AS version")
-                result = cursor.fetchone()
-
-        return {
-            "status": "ok",
-            "message": "Conexión a MySQL exitosa",
-            "mysql_version": result["version"]
-        }
-
-    except Exception as e:
-        return {
-            "status": "error",
-            "message": str(e)
-        }, 500
 
 
 def login_required(view):
@@ -143,6 +132,7 @@ def registro():
 
 
 @app.route('/inicio-sesion', methods=['GET', 'POST'])
+@limiter.limit("5 per minute")
 def inicio_sesion():
     if session.get('usuario_id'):
         return redirect(url_for('inicio_cliente'))

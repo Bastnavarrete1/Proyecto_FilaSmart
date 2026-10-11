@@ -151,15 +151,10 @@
                                         </a>
 
 
-                                        <form
-                                            action="{{ url_for('eliminar_turno', numero_turno=turno.numero) }}"
-                                            method="POST"
-                                        >
+                                        <form action="{{ url_for('eliminar_turno', numero_turno=turno.numero) }}" method="POST">
+                                            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
 
-                                            <button
-                                                type="submit"
-                                                class="gestion-cancelar"
-                                            >
+                                            <button type="submit" class="gestion-cancelar">
 
                                                 <i class="bi bi-x-circle"></i>
 

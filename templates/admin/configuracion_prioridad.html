@@ -32,6 +32,7 @@
             <h3>Criterio de atencion</h3>
 
             <form method="POST">
+                <input type="hidden" name="csrf_token" value="<input type="hidden" name="csrf_token" value="{{ csrf_token() }}">">
 
                 <label for="prioridad">
                     Criterio:

@@ -93,6 +93,7 @@
                     {% if turno.estado == "En atencion" %}
 
                         <form action="{{ url_for('finalizar_atencion', numero_turno=turno.numero) }}" method="POST" style="display:inline">
+                            <input type="hidden" name="csrf_token" value="<input type="hidden" name="csrf_token" value="{{ csrf_token() }}">">
                             <button type="submit">Finalizar atencion</button>
                         </form>
 
@@ -102,6 +103,7 @@
                     {% if turno.estado == "Pendiente" %}
 
                         <form action="{{ url_for('cancelar_turno_admin', numero_turno=turno.numero) }}" method="POST" style="display:inline">
+                            <input type="hidden" name="csrf_token" value="<input type="hidden" name="csrf_token" value="{{ csrf_token() }}">">
                             <button type="submit">Cancelar turno</button>
                         </form>
 
@@ -131,6 +133,7 @@
 
             <p>
                 <form action="{{ url_for('llamar_siguiente') }}" method="POST">
+                    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
                     <button type="submit">Llamar siguiente turno</button>
                 </form>
             </p>

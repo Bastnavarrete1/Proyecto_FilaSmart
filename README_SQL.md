@@ -58,7 +58,7 @@ $env:FLASK_SECRET_KEY='UNA_CLAVE_ALEATORIA_LARGA'
 python app.py
 ```
 
-Abre `http://127.0.0.1:5000`. `.env.example` documenta las variables, pero `app.py` no lee automáticamente un archivo `.env`: debes definir las variables en la terminal como arriba. Nunca subas contraseñas al repositorio.
+Abre `http://127.0.0.1:5000`. .`env.example` documenta las variables y `app.py` carga las definidas en el archivo `.env` mediante `load_dotenv()`
 
 ## Paso 4: preparar una cuenta para atender
 
